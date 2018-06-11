@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Cleaner font -->
+    <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
+    <!-- CSS source files -->
+    <link rel="stylesheet" href="/css/boti.css" />
+    <link rel="stylesheet" href="/css/scarecrow.css" />
+    <nav class="nav2">
+      <menu class="menu2">
+          <a href="/scarecrow"><div class="menu2-button"><div class="menu2-button-icon icon-home"></div></div></a>
+        <% for(var i=0; i<scMenu.length; i++) {
+          if (scMenu[i].name == activePage) {%>
+          <a href="<%=scMenu[i].path%>"><div class="menu2-button menu2-button-selected"><div class="menu2-button-text"><%=scMenu[i].name%></div></div></a>
+        <%} else {%>
+          <a href="<%=scMenu[i].path%>"><div class="menu2-button"><div class="menu2-button-text"><%=scMenu[i].name%></div></div></a>
+        <%}}%>
+      </menu>
+    </nav>
+  </head>
+  <body>
+    <section id="pageContainer">
+    </section>
+  </body>
+  <foot>
+    <!-- JS source files -->
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/scarecrow.js"></script>
+  </foot>
+</html>
