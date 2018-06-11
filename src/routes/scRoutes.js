@@ -16,11 +16,16 @@ function router() {
     if (req.user) {
       rank = req.user.rank;
     }
-    getPages(rank, function(scMenu){
-      (async function dbQuery() {
-        res.render('sc-home', { scMenu });
-      }());
-    });
+    scMenu = [
+      {path: 'pApply', name: 'Apply'},
+      {path: 'pAssignment', name: 'Assignment'}
+    ];
+    res.render('sc-home', { scMenu})
+    //getPages(rank, function(scMenu){
+    //  (async function dbQuery() {
+    //    res.render('sc-home', { scMenu });
+    //  }());
+    //});
   });
   // => The rest of the routes, pages you might want to open up
   scarecrowRouter.route('/admin')
