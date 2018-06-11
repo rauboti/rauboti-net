@@ -1,6 +1,5 @@
 const projects = [
-  {name: 'Scarecrow', link: '/scarecrow', description: 'Guild site created for the upcoming release of WoW Classic'},
-  {name: 'CharHammer', link: '/charhammer', description: 'A lightweight app for storing and managing Warhammer characters'}
+  {name: 'Scarecrow', link: '/scarecrow', description: 'Guild site created for the upcoming release of WoW Classic'}
 ];
 
 $(document).ready(function() {

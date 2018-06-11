@@ -34,7 +34,7 @@ app.use('/img', express.static(path.join(__dirname, '/src/img')));
 app.use('/ico', express.static(path.join(__dirname, '/src/ico')));
 
 // => setting up EJS as a template engine
-app.set('views', './src/views');
+app.set('views', './public/views');
 app.set('view engine', 'ejs');
 
 
@@ -46,11 +46,6 @@ app.get('/', (req, res) => {
       {text: 'Projects', id: 'pProjects'},
       {text: 'About', id: 'pAbout'}]
   });
-});
-
-// => root of the project router
-projectRouter.route('/').get((req, res) => {
-  res.send('Unable to find the requested page.');
 });
 // => using the scarecrow router if /scarecrow are shown.
 app.use('/scarecrow', scarecrowRouter);
