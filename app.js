@@ -24,9 +24,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({ secret: 'scarecrow' }));
 require('./src/config/passport.js')(app);
-app.use(favicon(path.join(__dirname, '/src/ico', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, '/public/ico', 'favicon.ico')));
 
 // => static folder for source files
+app.use(express.static(path.join(__dirname, '/public')));
 app.use('/css', express.static(path.join(__dirname, '/src/css')));
 app.use('/js', express.static(path.join(__dirname, '/src/js')));
 app.use('/img', express.static(path.join(__dirname, '/src/img')));
@@ -51,15 +52,8 @@ app.get('/', (req, res) => {
 projectRouter.route('/').get((req, res) => {
   res.send('Unable to find the requested page.');
 });
-// => other coding projects
-projectRouter.route('/charhammer').get((req, res) => {
-  res.sendFile(path.join(__dirname, '/src/views/', 'charhammer.html'));
-});
-
 // => using the scarecrow router if /scarecrow are shown.
 app.use('/scarecrow', scarecrowRouter);
-// => using the project router if /projects are shown.
-app.use('/projects', projectRouter);
 
 // => listening to port
 app.listen(port, () => {
