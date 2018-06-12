@@ -18,21 +18,24 @@
   <body>
     <section id="pageContainer">
       <div class="container-login-frame">
-        <div class="container-headline">Sign in</div>
+        <div class="container-headline">Sign up</div>
         <div class="container-body">
           <img class="container-login-image" src="/img/crow.png"></img>
-          <form name="frmSignIn" action="/scarecrow/signIn" method="post">
+          <form name="frmSignUp" action="/scarecrow/signUp" method="post">
             <div class="input-container">
               <input type="text" id="username" name="username" class="input-text-big" placeholder="Username" required/>
             </div>
             <div class="input-container">
               <input type="password" id="password" name="password" class="input-text-big" placeholder="Password" required/>
             </div>
+            <div class="input-container">
+              <input type="text" id="email" name="email" class="input-text-big" placeholder="email (optional)"/>
+            </div>
             <div id="errorMessage" class="text-error"></div>
             <div class="buttonRow">
-              <input id="btnLogin" type="submit" class="button input-button" value="Sign in" />
+              <input id="btnSignUp" type="submit" class="button input-button" value="Sign up" />
             </div>
-            <div>Don't have an account? <a href="/scarecrow/signUp"><u>Sign up!</u></a></div>
+            <div>...or <a href="/scarecrow/signIn"><u>sign in</u></a> here!</div>
           </form>
         </div>
         <div class="container-foot">

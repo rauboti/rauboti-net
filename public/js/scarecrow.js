@@ -1,11 +1,11 @@
 $(document).ready(function() {
-  $('.menu3-button').click(function() {
+  $('.menu-button-small').click(function() {
     if ($(this).attr('id').split('-')[1] === 'Progression') {
       $('.tblProgression').addClass('hidden');
       $(".boss-" + $(this).attr('id').split('-')[2]).removeClass('hidden');
     }
-    $('.menu3-button').removeClass('menu3-button-selected');
-    $(this).addClass('menu3-button-selected');
+    $('.menu-button-small').removeClass('menu-button-selected');
+    $(this).addClass('menu-button-selected');
   });
   $('.button').click(function() {
     if ($(this).attr('id').split('btn')[1] === 'AddCharacter') { scarecrow.addNewCharacter(); }

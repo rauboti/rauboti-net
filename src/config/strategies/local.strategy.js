@@ -10,9 +10,7 @@ function localStrategy() {
       passwordField: 'password'
     }, (username, password, done) => {
       (async function dbQuery() {
-        //const result = await sql.query('DELETE FROM tblCharacter WHERE id = ? AND name = ? and class = ?', [req.body.cID, req.body.cName, req.body.cClass]);
         const result = await sql.query('SELECT id, pw, user, rank FROM tblUser WHERE user = ?', [username]);
-        //debug(result);
         if (result === undefined || result.length === 0) {
           done(null, false);
         } else {

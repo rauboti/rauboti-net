@@ -38,16 +38,20 @@ function router() {
         }());
       });
     });
-  scarecrowRouter.route('/apply').get((req, res) => {
-    let rank = 0;
-    if (req.user) {
-      rank = req.user.rank;
-    }
-    getPages(rank, function(scMenu){
-      (async function dbQuery() {
-        res.render('sc', { scMenu, activePage: 'Apply' });
-      }());
-    });
+  scarecrowRouter.route('/apply')
+    .all((req, res, next) => {
+      if(req.user && req.user.rank >= 1) {
+        next();
+      } else {
+        res.redirect('/scarecrow/signIn');
+      }
+    })
+    .get((req, res) => {
+      getPages(req.user.rank, function(scMenu){
+        (async function dbQuery() {
+          res.render('sc', { scMenu, activePage: 'Apply' });
+        }());
+      });
   });
   scarecrowRouter.route('/events')
     .all((req, res, next) => {
@@ -123,7 +127,8 @@ function router() {
       getPages(req.user.rank, function(scMenu){
         (async function dbQuery() {
           const characters = await sql.query('SELECT id, name, class, role FROM tblCharacter WHERE user_id = ?', [req.user.id]);
-          const user = await sql.query('SELECT u.user, r.name, u.email FROM tblUser u JOIN tblRank r ON u.rank = r.id WHERE u.id = ?', [req.user.id]);
+          const user = await sql.query('SELECT u.user, r.name as "rank", u.email FROM tblUser u JOIN tblRank r ON u.rank = r.id WHERE u.id = ?', [req.user.id]);
+          debug(user);
           res.render('sc-profile', { scMenu, activePage: 'Profile', characters, user });
         }());
       });
@@ -170,6 +175,28 @@ function router() {
       successRedirect: '/scarecrow',
       failureRedirect: '/scarecrow/signIn'
     }));
+    scarecrowRouter.route('/signUp')
+      .get((req, res) => {
+        let rank = 0;
+        if (req.user) {
+          rank = req.user.rank;
+        }
+        getPages(rank, function(scMenu){
+          (async function dbQuery() {
+            res.render('sc-signUp', { scMenu });
+          }());
+        });
+      })
+      .post((req, res) => {
+        (async function addUser() {
+          const newUser = await sql.query('INSERT INTO tblUser (user, pw, email, rank) VALUES (?, ?, ?, 1)', [req.body.username, req.body.password, req.body.email]);
+          const getUser = await sql.query('SELECT id, pw, user, rank FROM tblUser WHERE user = ? AND pw = ?', [req.body.username, req.body.password]);
+          const user = getUser[0];
+          req.login(user, () => {
+            res.redirect('/scarecrow');
+          });
+        }());
+      });
   // => API for the various database calls
   scarecrowRouter.route('/api').post((req, res) => {
     debug(req.body);

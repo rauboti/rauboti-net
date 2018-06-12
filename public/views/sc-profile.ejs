@@ -6,21 +6,21 @@
     <!-- CSS source files -->
     <link rel="stylesheet" href="/css/boti.css" />
     <link rel="stylesheet" href="/css/scarecrow.css" />
-    <nav class="nav2">
-      <menu class="menu2">
-        <a href="/scarecrow"><div class="menu2-button"><div class="menu2-button-icon icon-home"></div></div></a>
+    <nav class="nav-sc">
+      <menu class="menu-sc">
+        <a href="/scarecrow"><div class="menu-button"><div class="menu-button-icon icon-home"></div></div></a>
         <% for(var i=0; i<scMenu.length; i++) {
           if (scMenu[i].name == activePage) {%>
-          <a href="<%=scMenu[i].path%>"><div class="menu2-button menu2-button-selected"><div class="menu2-button-text"><%=scMenu[i].name%></div></div></a>
+          <a href="<%=scMenu[i].path%>"><div class="menu-button menu-button-selected"><div class="menu-button-text"><%=scMenu[i].name%></div></div></a>
         <%} else {%>
-          <a href="<%=scMenu[i].path%>"><div class="menu2-button"><div class="menu2-button-text"><%=scMenu[i].name%></div></div></a>
+          <a href="<%=scMenu[i].path%>"><div class="menu-button"><div class="menu-button-text"><%=scMenu[i].name%></div></div></a>
         <%}}%>
       </menu>
     </nav>
   </head>
   <body>
     <section id="pageContainer">
-      <div id="pageContainerCell" class="container-main2">
+      <div id="pageContainerCell" class="container-sc">
         <div id="pageMainComponents">
           <div class="container-frame">
             <div class="container-headline">User</div>
@@ -63,7 +63,7 @@
                     <td class="charName"><%=characters[i].name%></td>
                     <td class="charClass"><%=characters[i].class%></td>
                     <td class="charRole role<%=characters[i].role%>"></td>
-                    <td><div id="btnDeleteCharacter_<%=characters[i].id%>" class="button table-delete-button"></div></td>
+                    <td><div id="btnDeleteCharacter_<%=characters[i].id%>" class="button button-icon-delete"></div></td>
                   </tr>
                 <%}%>
               </table>
