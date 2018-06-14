@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  $('.input-text-big').blur(function() {
+    validate.signUp();
+  });
   $('.menu-button-small').click(function() {
     if ($(this).attr('id').split('-')[1] === 'Progression') {
       $('.tblProgression').addClass('hidden');
@@ -26,6 +29,37 @@ $(document).ready(function() {
     else if ($(this).attr('id').split('btn')[1].split('_')[0] === 'UpdateInfo') { scarecrow.updateInfo($('#tblUsername').text(), $('#tblEmail').text()); }
   });
 });
+var validate = {
+  signUp: function() {
+    let validity;
+    let userValid;
+    let pwValid;
+    let errormsg = '';
+    $('.input-text-big').removeClass('invalid');
+    $('.input-text-big').removeClass('valid');
+    if ($('#username').val().length < 3) {
+      $('#username').addClass('invalid');
+      errormsg += 'Username with at least 3 characters required<br>'
+      userValid = false;
+    }
+    if ($('#password').val() === '') {
+      $('#password').addClass('invalid');
+      errormsg += 'Password required<br>';
+      pwValid = false;
+    } else if ($('#password').val() !== $('#password_confirm').val()) {
+      $('#password').addClass('invalid');
+      $('#password_confirm').addClass('invalid');
+      errormsg += 'The passwords must match each other<br>';
+      pwValid = false;
+    }
+    if (!userValid || !pwValid) {
+      $('#errorMessage').html(errormsg);
+      return false
+    } else {
+      return true;
+    }
+  }
+}
 
 var scarecrow = {
   _apiLocationReload: function(data) {

@@ -18,7 +18,7 @@ function router() {
     }
     getPages(rank, function(scMenu){
       (async function dbQuery() {
-        res.render('sc-home', { scMenu });
+        res.render('sc-home', { scMenu, title: '<Scarecrow>' });
       }());
     });
   });
@@ -34,7 +34,7 @@ function router() {
     .get((req, res) => {
       getPages(req.user.rank, function(scMenu){
         (async function dbQuery() {
-          res.render('sc', { scMenu, activePage: 'Admin' });
+          res.render('sc', { scMenu, activePage: 'Admin', title: '<Scarecrow>' });
         }());
       });
     });
@@ -43,13 +43,13 @@ function router() {
       if(req.user && req.user.rank >= 1) {
         next();
       } else {
-        res.redirect('/scarecrow/signIn');
+        res.redirect('/scarecrow/signUp');
       }
     })
     .get((req, res) => {
       getPages(req.user.rank, function(scMenu){
         (async function dbQuery() {
-          res.render('sc', { scMenu, activePage: 'Apply' });
+          res.render('sc', { scMenu, activePage: 'Apply', title: '<Scarecrow>' });
         }());
       });
   });
@@ -64,7 +64,7 @@ function router() {
     .get((req, res) => {
       getPages(req.user.rank, function(scMenu){
         (async function dbQuery() {
-          res.render('sc', { scMenu, activePage: 'Events' });
+          res.render('sc', { scMenu, activePage: 'Events', title: '<Scarecrow>' });
         }());
       });
     });
@@ -79,7 +79,7 @@ function router() {
     .get((req, res) => {
       getPages(req.user.rank, function(scMenu){
         (async function dbQuery() {
-          res.render('sc', { scMenu, activePage: 'Forum' });
+          res.render('sc', { scMenu, activePage: 'Forum', title: '<Scarecrow>' });
         }());
       });
     });
@@ -95,7 +95,7 @@ function router() {
     }
     getPages(rank, function(scMenu){
       (async function dbQuery() {
-        res.render('sc', { scMenu, activePage: 'Hierarchy' });
+        res.render('sc', { scMenu, activePage: 'Hierarchy', title: '<Scarecrow>' });
       }());
     });
   });
@@ -110,7 +110,7 @@ function router() {
     .get((req, res) => {
       getPages(req.user.rank, function(scMenu){
         (async function dbQuery() {
-          res.render('sc', { scMenu, activePage: 'Loot' });
+          res.render('sc', { scMenu, activePage: 'Loot', title: '<Scarecrow>' });
         }());
       });
     });
@@ -129,7 +129,7 @@ function router() {
           const characters = await sql.query('SELECT id, name, class, role FROM tblCharacter WHERE user_id = ?', [req.user.id]);
           const user = await sql.query('SELECT u.user, r.name as "rank", u.email FROM tblUser u JOIN tblRank r ON u.rank = r.id WHERE u.id = ?', [req.user.id]);
           debug(user);
-          res.render('sc-profile', { scMenu, activePage: 'Profile', characters, user });
+          res.render('sc-profile', { scMenu, activePage: 'Profile', characters, user, title: '<Scarecrow>' });
         }());
       });
     });
@@ -152,7 +152,7 @@ function router() {
           progression[result[i].instance].push(x);
         }
         //debug(progression);
-        res.render('sc-progression', { scMenu, activePage: 'Progression', progression });
+        res.render('sc-progression', { scMenu, activePage: 'Progression', progression, title: '<Scarecrow>' });
       }());
     });
     (async function dbQuery() {
@@ -167,7 +167,7 @@ function router() {
       }
       getPages(rank, function(scMenu){
         (async function dbQuery() {
-          res.render('sc-signIn', { scMenu });
+          res.render('sc-signIn', { scMenu, title: '<Scarecrow>' });
         }());
       });
     })
@@ -183,7 +183,7 @@ function router() {
         }
         getPages(rank, function(scMenu){
           (async function dbQuery() {
-            res.render('sc-signUp', { scMenu });
+            res.render('sc-signUp', { scMenu, title: '<Scarecrow>' });
           }());
         });
       })

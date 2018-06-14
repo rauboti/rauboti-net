@@ -176,8 +176,12 @@ table {
 .input-text-big {
   width: 300px;
 }
-.input-text:valid, .input-text-big:valid {
+
+.valid {
   border: 1px solid green;
+}
+.invalid {
+  border: 1px solid red;
 }
 .input-button {
   display: inline-block;
