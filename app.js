@@ -46,7 +46,7 @@ app.get('/', (req, res) => {
       {text: 'About', id: 'pAbout'}], title: 'Rauboti.net'
   });
 });
-// => using the scarecrow router if /scarecrow are shown.
+// => using the scarecrow router if /scarecrow are called
 app.use('/scarecrow', scarecrowRouter);
 
 // => listening to port
