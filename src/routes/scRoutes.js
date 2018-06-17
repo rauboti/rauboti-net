@@ -95,7 +95,8 @@ function router() {
     }
     getPages(rank, function(scMenu){
       (async function dbQuery() {
-        res.render('sc', { scMenu, activePage: 'Hierarchy', title: '<Scarecrow>' });
+        const users = await sql.query('SELECT u.user, r.name as "rank", u.role FROM tblUser u JOIN tblRank r ON u.rank = r.id ORDER BY r.name, u.user');
+        res.render('sc-hierarchy', { scMenu, activePage: 'Hierarchy', title: '<Scarecrow>', users });
       }());
     });
   });
@@ -127,7 +128,7 @@ function router() {
       getPages(req.user.rank, function(scMenu){
         (async function dbQuery() {
           const characters = await sql.query('SELECT id, name, class, role FROM tblCharacter WHERE user_id = ?', [req.user.id]);
-          const user = await sql.query('SELECT u.user, r.name as "rank", u.email FROM tblUser u JOIN tblRank r ON u.rank = r.id WHERE u.id = ?', [req.user.id]);
+          const user = await sql.query('SELECT u.user, r.name as "rank", u.email, u.role FROM tblUser u JOIN tblRank r ON u.rank = r.id WHERE u.id = ?', [req.user.id]);
           debug(user);
           res.render('sc-profile', { scMenu, activePage: 'Profile', characters, user, title: '<Scarecrow>' });
         }());

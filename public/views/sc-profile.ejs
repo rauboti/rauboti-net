@@ -37,10 +37,13 @@
                 <tr>
                   <th>Guild rank:</th>
                   <td><i><%=user[0].rank%></i></td>
-                  <th></th>
-                  <td></td>
-                </tr>
-                <tr>
+                  <% if (user[0].role === null || user[0].role === '' || user[0].role === undefined) {%>
+                    <th></th>
+                    <td></td>
+                  <%} else {%>
+                    <th>Role:</th>
+                    <td><i><%=user[0].role%></i></td>
+                  <%}%>
                 </tr>
               </table>
             </div>
@@ -84,5 +87,6 @@
     <!-- JS source files -->
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/scarecrow.js"></script>
+    <script src="/js/sc-main.js"></script>
   </foot>
 </html>
