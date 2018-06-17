@@ -233,7 +233,9 @@ function getPages(rank, success) {
       obj['menu'] = result[i].menu;
       scMenu[result[i].name] = obj;
     }
-    availablePaths = scMenu;
+    if (rank > 1) {
+      delete scMenu.Apply;
+    }
     success(scMenu);
   }());
 }
