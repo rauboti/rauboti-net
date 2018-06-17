@@ -224,7 +224,15 @@ function router() {
 
 function getPages(rank, success) {
   (async function dbQuery() {
-    const scMenu = await sql.query('SELECT name, path FROM tblPages WHERE rank_id <= ?', [rank]);
+    const result = await sql.query('SELECT name, path, menu FROM tblPages WHERE rank_id <= ?', [rank]);
+    let scMenu = {};
+    for (var i in result) {
+      let obj = {};
+      obj['path'] = result[i].path;
+      obj['menu'] = result[i].menu;
+      scMenu[result[i].name] = obj;
+    }
+    availablePaths = scMenu;
     success(scMenu);
   }());
 }
