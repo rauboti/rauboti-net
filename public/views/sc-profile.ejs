@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/scarecrow.css" />
     <nav class="nav-sc">
       <menu class="menu-sc">
-        <a href="/"><div class="menu-button"><div class="menu-button-icon icon-home"></div></div></a>
+        <a href="<%=scMenu['Home'].path%>"><div class="menu-button"><div class="menu-button-icon icon-home"></div></div></a>
         <% for (var i in scMenu) {
           if (scMenu[i].menu === 1) {
             if (i == activePage) {%>
