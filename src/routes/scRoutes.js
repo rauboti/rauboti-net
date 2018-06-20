@@ -38,6 +38,39 @@ function router() {
         }());
       });
     });
+  scarecrowRouter.route('/applications')
+    .all((req, res, next) => {
+      if(req.user && req.user.rank === 8) {
+        next();
+      } else {
+        res.redirect('/scarecrow/signIn');
+      }
+    })
+    .get((req, res) => {
+      getPages(req.user.rank, function(scMenu){
+        (async function dbQuery() {
+          const applications = await sql.query('SELECT id, status, character_name, character_class, character_role, character_level FROM tblApplications');
+          res.render('sc-applications', { scMenu, activePage: 'Applications', title: '<Scarecrow>', applications });
+        }());
+      });
+    });
+    scarecrowRouter.route('/applications/:id')
+      .all((req, res, next) => {
+        if(req.user && req.user.rank === 8) {
+          next();
+        } else {
+          res.redirect('/scarecrow/signIn');
+        }
+      })
+      .get((req, res) => {
+        getPages(req.user.rank, function(scMenu){
+          (async function dbQuery() {
+            const { id }  = req.params;
+            const application = await sql.query('SELECT user, status, character_name, character_class, character_role, character_level, spec, raids, preparation, asset, mistakes, anything_else FROM tblApplications WHERE id = ?', [id]);
+            res.render('sc-application', { scMenu, activePage: 'Applications', title: '<Scarecrow>', application });
+          }());
+        });
+      });
   scarecrowRouter.route('/apply')
     .all((req, res, next) => {
       if(req.user && req.user.rank >= 1) {
@@ -49,10 +82,18 @@ function router() {
     .get((req, res) => {
       getPages(req.user.rank, function(scMenu){
         (async function dbQuery() {
-          res.render('sc', { scMenu, activePage: 'Apply', title: '<Scarecrow>' });
+          const classes = await sql.query('SELECT name, isDamage, isSupport, isTank FROM tblClass WHERE available = 1')
+          const username = req.user.user;
+          res.render('sc-apply', { scMenu, activePage: 'Apply', title: '<Scarecrow>', username, classes });
         }());
       });
-  });
+    })
+    .post((req, res) => {
+      (async function submitApplication() {
+        const result = await sql.query('INSERT INTO tblApplications (user, status, character_name, character_class, character_role, character_level, spec, raids, preparation, asset, mistakes, anything_else) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [req.user.id, 'New', req.body.characterName, req.body.characterClass, req.body.characterRole, req.body.characterLevel, req.body.specLink, req.body.numberRaids, req.body.preparation, req.body.asset, req.body.mistake, req.body.anythingElse]);
+        res.redirect('/scarecrow');
+      }());
+    });
   scarecrowRouter.route('/events')
     .all((req, res, next) => {
       if(req.user && req.user.rank >= 2) {
@@ -234,7 +275,7 @@ function getPages(rank, success) {
       scMenu[result[i].name] = obj;
     }
     if (rank > 1) {
-      delete scMenu.Apply;
+      scMenu['Apply'].menu = 0;
     }
     success(scMenu);
   }());

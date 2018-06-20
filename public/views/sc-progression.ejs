@@ -27,21 +27,15 @@
           <div class="container-body">
           <div class="container-frame">
             <% for (var i in progression) {%>
-            <div id="btn-Progression-<%=i.replace("'", "").replace(" ", "")%>" class="menu-button-small"><div class="menu-button-text"><%=i%></div></div>
+            <div id="btn-Progression-<%=i.replace(/[\' ]/g, '')%>" class="menu-button-small"><div class="menu-button-text"><%=i%></div></div>
             <%}%>
           </div>
           <div class="table-container-tiny-outer">
             <div class="table-container-tiny-inner">
               <table>
-                <!--
-                <tr class="tr-table">
-                  <th>Boss</th>
-                  <th>Status</th>
-                </tr>
-                -->
                 <% for (var i in progression) {
                   for (var j in progression[i]) {%>
-                    <tr class="tblProgression boss-<%=i.replace("'", "").replace(" ", "")%> hidden">
+                    <tr class="tblProgression boss-<%=i.replace(/[\' ]/g, '')%> hidden">
                       <td><%=progression[i][j].boss%></td>
                       <td><%=progression[i][j].status%></td>
                     </tr>

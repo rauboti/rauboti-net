@@ -47,7 +47,15 @@ table {
   text-align: left;
   border-collapse: collapse;
 }
-
+textarea {
+  background: none;
+  color: rgba(var(--text-colour-alt), 1);
+  border: 1px solid rgba(var(--border-colour-alt), 0.2);
+  width: 95%;
+  resize: none;
+  height: 50px;
+  margin: 0;
+}
 /* => Other buttons */
 .button-icon-delete {
   background-image: url('../ico/trashIcon.svg');
@@ -57,6 +65,18 @@ table {
 }
 .button-icon-delete:hover {
   background-image: url('../ico/trashIconHover.svg');
+}
+.button-icon-view {
+  background-image: url('../ico/view.svg');
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+.button-icon-view:hover {
+  background-image: url('../ico/viewHover.svg');
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
 }
 /* => Misc */
 
@@ -176,7 +196,10 @@ table {
   border: 1px solid rgba(var(--border-colour-alt), 0.2);
   margin: 0;
 }
-.input-text, .input-text-big, .input-button {
+.input-text-container, .input-text-big, .input-button {
+  margin: 5px;
+}
+.input-text, .input-text-big, .input-button, textarea {
   outline: none;
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
@@ -184,9 +207,8 @@ table {
   -o-transition: all 0.30s ease-in-out;
   transition: all 0.30s ease-in-out;
   padding: 10px;
-  margin: 5px;
 }
-.input-text:focus, .input-text-big:focus, .input-button:focus {
+.input-text:focus, .input-text-big:focus, .input-button:focus, textarea:focus {
   box-shadow: 0 0 5px rgba(var(--border-colour-focus), 1);
   border: 1px solid rgba(var(--border-colour-focus), 1);
 }
@@ -216,7 +238,8 @@ table {
 }
 .text-error {
   color: red;
-  font-weight: bold;
+  font-size: 12px;
+  font-style: italic;
 }
 .select-options2 {
   background-color: rgba(var(--bg-colour-alt), 1);
@@ -253,7 +276,7 @@ table {
 /* => container classes <= */
 .container-rauboti, .container-sc {
   width: 50%;
-  min-width: 600px;
+  min-width: 700px;
   display: inline-block;
   margin: 50px;
   padding: 10px;
@@ -311,7 +334,15 @@ table {
   background-color: rgba(var(--bg-colour-alt), 0.9);
   color: rgba(var(--text-colour-alt), 1);
   padding: 10px;
+  max-height: 600px;
+  overflow: scroll;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
 }
+.container-body::-webkit-scrollbar {
+  width: 0 !important;
+}
+
 .container-foot {
   background-color: rgba(var(--bg-colour-alt), 0.9);
 }

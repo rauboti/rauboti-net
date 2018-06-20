@@ -25,6 +25,34 @@ var scarecrow = {
   _toggleFadeOut: function(object) {
     $(object).toggleClass('inactive');
   },
+  _validateApplication: function() {
+    $('#txtCharName').val() === '' ? $('#txtCharName').addClass('invalid') : $('#txtCharName').removeClass('invalid');
+    $('#txtCharName').val() === '' ? $('#txtCharNameError').html('Field required') : $('#txtCharNameError').html('');
+    $('#slctCharClass option:selected').text() === '' ? $('#slctCharClass').addClass('invalid') : $('#slctCharClass').removeClass('invalid');
+    $('#slctCharClass option:selected').text() === '' ? $('#slctCharClassError').html('Field required') : $('#slctCharClassError').html('');
+    $('#slctCharRole option:selected').text() === '' ? $('#slctCharRole').addClass('invalid') : $('#slctCharRole').removeClass('invalid');
+    $('#slctCharRole option:selected').text() === '' ? $('#slctCharRoleError').html('Field required') : $('#slctCharRoleError').html('');
+    $('#txtLevel').val() === ''? $('#txtLevel').addClass('invalid') : $('#txtLevel').removeClass('invalid');
+    $('#txtLevel').val() === '' ? $('#txtLevelError').html('Field required') : $('#txtLevelError').html('');
+    $('#txtSpecLink').val() === '' ? $('#txtSpecLink').addClass('invalid') : $('#txtSpekLink').removeClass('invalid');
+    $('#txtSpecLink').val() === '' ? $('#txtSpecLinkError').html('Field required') : $('#txtSpecLinkError').html('');
+    $('#txtNumberOfRaids').val() === '' ? $('#txtNumberOfRaids').addClass('invalid') : $('#txtNumberOfRaids').removeClass('invalid');
+    $('#txtNumberOfRaids').val() === '' ? $('#txtNumberOfRaidsError').html('Field required') : $('#txtNumberOfRaidsError').html('');
+    $('#txtPreparation').val() === '' ? $('#txtPreparation').addClass('invalid') : $('#txtPreparation').removeClass('invalid');
+    $('#txtPreparation').val() === '' ? $('#txtPreparationError').html('Field required') : $('#txtPreparationError').html('');
+    $('#txtValuableAsset').val() === '' ? $('#txtValuableAsset').addClass('invalid') : $('#txtValuableAsset').removeClass('invalid');
+    $('#txtValuableAsset').val() === '' ? $('#txtValuableAssetError').html('Field required') : $('#txtValuableAssetError').html('');
+    $('#txtMakingMistake').val() === '' ? $('#txtMakingMistake').addClass('invalid') : $('#txtMakingMistake').removeClass('invalid');
+    $('#txtMakingMistake').val() === '' ? $('#txtMakingMistakeError').html('Field required') : $('#txtMakingMistakeError').html('');
+    $('#txtAnythingElse').val() === '' ? $('#txtAnythingElse').addClass('invalid') : $('#txtAnythingElse').removeClass('invalid');
+    $('#txtAnythingElse').val() === '' ? $('#txtAnythingElseError').html('Field required') : $('#txtAnythingElseError').html('');
+
+    if ($('#txtCharName').val() === '' || $('#slctCharClass option:selected').text() === '' || $('#slctCharRole option:selected').text() === '' || $('#txtLevel').val() === '' || $('#txtSpecLink').val() === '' || $('#txtNumberOfRaids').val() === '' || $('#txtPreparation').val() === '' || $('#txtValuableAsset').val() === '' || $('#txtMakingMistake').val() === '' || $('#txtAnythingElse').val() === '') {
+      return false;
+    } else {
+      return true;
+    }
+  },
   _validateSignIn: function() {
     let userValid = true;
     let pwValid = true;
@@ -33,15 +61,18 @@ var scarecrow = {
     $('.input-text-big').removeClass('valid');
     if ($('#username').val().length < 3) {
       $('#username').addClass('invalid');
-      errormsg += 'Username with at least 3 characters required<br>'
+      $('#usernameError').html('Username required');
       userValid = false;
+    } else {
+      $('#usernameError').html('');
     }
     if ($('#password').val() === '') {
       $('#password').addClass('invalid');
-      errormsg += 'Password required<br>';
+      $('#passwordError').html('Password required')
       pwValid = false;
+    } else {
+      $('#passwordError').html('');
     }
-    $('#errorMessage').html(errormsg);
     if (!userValid || !pwValid) {
       return false
     } else {
@@ -56,20 +87,25 @@ var scarecrow = {
     $('.input-text-big').removeClass('valid');
     if ($('#username').val().length < 3) {
       $('#username').addClass('invalid');
-      errormsg += 'Username with at least 3 characters required<br>'
+      $('#usernameError').html('Username with at least 3 characters required');
       userValid = false;
+    } else {
+      $('#usernameError').html('')
     }
     if ($('#password').val() === '') {
       $('#password').addClass('invalid');
-      errormsg += 'Password required<br>';
+      $('#passwordError').html('Password required');
       pwValid = false;
     } else if ($('#password').val() !== $('#password_confirm').val()) {
       $('#password').addClass('invalid');
       $('#password_confirm').addClass('invalid');
-      errormsg += 'The passwords must match each other<br>';
+      $('#passwordError').html('The passwords must match each other');
+      $('#passwordConfirmError').html('The passwords must match each other');
       pwValid = false;
+    } else {
+      $('#passwordError').html('');
+      $('#passwordConfirmError').html('');
     }
-    $('#errorMessage').html(errormsg);
     if (!userValid || !pwValid) {
       return false
     } else {
@@ -99,7 +135,17 @@ var scarecrow = {
         $('#errorMessage').html('All fields must be filled!')
       }
     });
-
+    scarecrow.getCharacterClasses();
+  },
+  closeWindow: function(win) {
+    $(win).remove();
+    this._toggleFadeOut('#pageMainComponents');
+  },
+  deleteCharacter: function (cID, cName, cClass) {
+    var data = { request: 'characterDelete', cID: cID, cName: cName, cClass: cClass };
+    this._apiLocationReload(data);
+  },
+  getCharacterClasses: function() {
     var data = { request: 'getCharacterClasses' };
     $.ajax({
       type: 'POST',
@@ -123,14 +169,6 @@ var scarecrow = {
         });
       }
     });
-  },
-  closeWindow: function(win) {
-    $(win).remove();
-    this._toggleFadeOut('#pageMainComponents');
-  },
-  deleteCharacter: function (cID, cName, cClass) {
-    var data = { request: 'characterDelete', cID: cID, cName: cName, cClass: cClass };
-    this._apiLocationReload(data);
   },
   submitNewCharacter: function(cName, cClass, cRole) {
     var data = { request: 'characterSubmitNew', cName: cName, cClass: cClass, cRole: cRole };
