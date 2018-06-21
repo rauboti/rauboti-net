@@ -157,21 +157,16 @@ textarea {
   padding: 15px;
 }
 .menu-button {
-  padding: 5px;
-  margin: 5px;
   vertical-align: top;
 }
 .menu-button, .menu-button-small {
   padding: 5px;
   margin: 5px;
 }
-.menu-button {
-  vertical-align: top;
-}
 .menu-button-small {
   font-size: 1.2em;
 }
-.menu-button-text:hover, .menu-button-icon:hover{
+.menu-button-text:hover, .menu-button-icon:hover, .response-button:hover {
   -webkit-transform: scale(1.075);
   -moz-transform: scale(1.075);
   -ms-transform: scale(1.075);
@@ -189,6 +184,14 @@ textarea {
   width: 1.2em;
 }
 
+.response-button {
+  border: none;
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  cursor: pointer;
+  margin: 5px;
+}
 /* => inputs */
 .input-text, .input-text-big {
   background: none;

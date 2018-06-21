@@ -38,12 +38,12 @@
                 </table>
               </div>
             </div>
-            <div class="container-frame">Approved applications</div>
+            <div class="container-frame">Accepted applications</div>
             <div class="table-container-tiny-outer">
               <div class="table-container-tiny-inner">
                 <table>
                 <% for (var i in applications) {
-                  if (applications[i].status === 'Approved') {%>
+                  if (applications[i].status === 'Accepted') {%>
                     <tr>
                       <td><a href="/scarecrow/applications/<%=applications[i].id%>">[<%=applications[i].character_level%>] <%=applications[i].character_name%> - <%=applications[i].character_class%> (<%=applications[i].character_role%>)</a></td>
                     </tr>

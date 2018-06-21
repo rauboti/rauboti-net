@@ -62,15 +62,18 @@ section {
   color: rgba(199, 156, 110, 1);
 }
 /* => Icons */
-.icon-home, .icon-signed-out, .icon-signed-in {
+.icon-home, .icon-accept, .icon-decline, .icon-back {
   background-repeat: no-repeat;
 }
 .icon-home {
   background: url('/ico/home.svg');
 }
-.icon-signed-out {
-  background: url('/ico/padlock_closed.svg');
+.icon-accept {
+  background: url('/ico/accept.svg');
 }
-.icon-signed-in {
-  background: url('/ico/padlock_open.svg');
+.icon-decline {
+  background: url('/ico/decline.svg');
+}
+.icon-back {
+  background: url('/ico/back.svg');
 }

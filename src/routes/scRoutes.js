@@ -76,6 +76,18 @@ function router() {
             res.render('sc-application', { scMenu, activePage: 'Applications', title: '<Scarecrow>', application });
           }());
         });
+      })
+      .post((req, res) => {
+        (async function dbQuery() {
+          if (req.body.back) {
+            //
+          } else if (req.body.accept) {
+            const result = await sql.query('UPDATE tblApplications SET status = ? WHERE id = ?', ['Accepted', req.params.id]);
+          } else if (req.body.decline) {
+            const result = await sql.query('UPDATE tblApplications SET status = ? WHERE id = ?', ['Declined', req.params.id]);
+          }
+          res.redirect('/scarecrow/applications');
+        }());
       });
   scarecrowRouter.route('/apply')
     .all((req, res, next) => {
@@ -284,7 +296,7 @@ function getPages(rank, success) {
       scMenu['Sign in'].menu = 0;
     }
     if (rank > 1) {
-      scMenu['Apply'].menu = 0;      
+      scMenu['Apply'].menu = 0;
     }
     success(scMenu);
   }());
