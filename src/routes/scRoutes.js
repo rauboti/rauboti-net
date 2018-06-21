@@ -18,7 +18,13 @@ function router() {
     }
     getPages(rank, function(scMenu){
       (async function dbQuery() {
-        res.render('sc-home', { scMenu, title: '<Scarecrow>' });
+        let session;
+        if (req.user) {
+          session = 'in';
+        } else {
+          session = 'out';
+        }
+        res.render('sc-home', { scMenu, title: '<Scarecrow>', session });
       }());
     });
   });
@@ -66,7 +72,7 @@ function router() {
         getPages(req.user.rank, function(scMenu){
           (async function dbQuery() {
             const { id }  = req.params;
-            const application = await sql.query('SELECT user, status, character_name, character_class, character_role, character_level, spec, raids, preparation, asset, mistakes, anything_else FROM tblApplications WHERE id = ?', [id]);
+            const application = await sql.query('SELECT user, status, character_name, character_class, character_role, character_level, spec, armory, raids, preparation, asset, mistakes, anything_else FROM tblApplications WHERE id = ?', [id]);
             res.render('sc-application', { scMenu, activePage: 'Applications', title: '<Scarecrow>', application });
           }());
         });
@@ -90,7 +96,7 @@ function router() {
     })
     .post((req, res) => {
       (async function submitApplication() {
-        const result = await sql.query('INSERT INTO tblApplications (user, status, character_name, character_class, character_role, character_level, spec, raids, preparation, asset, mistakes, anything_else) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [req.user.id, 'New', req.body.characterName, req.body.characterClass, req.body.characterRole, req.body.characterLevel, req.body.specLink, req.body.numberRaids, req.body.preparation, req.body.asset, req.body.mistake, req.body.anythingElse]);
+        const result = await sql.query('INSERT INTO tblApplications (user, status, character_name, character_class, character_role, character_level, spec, armory, raids, preparation, asset, mistakes, anything_else) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [req.user.id, 'New', req.body.characterName, req.body.characterClass, req.body.characterRole, req.body.characterLevel, req.body.specLink, req.body.armoryLink, req.body.numberRaids, req.body.preparation, req.body.asset, req.body.mistake, req.body.anythingElse]);
         res.redirect('/scarecrow');
       }());
     });
@@ -209,7 +215,7 @@ function router() {
       }
       getPages(rank, function(scMenu){
         (async function dbQuery() {
-          res.render('sc-signIn', { scMenu, title: '<Scarecrow>' });
+          res.render('sc-signIn', { scMenu, activePage: 'Sign in', title: '<Scarecrow>' });
         }());
       });
     })
@@ -274,8 +280,11 @@ function getPages(rank, success) {
       obj['menu'] = result[i].menu;
       scMenu[result[i].name] = obj;
     }
+    if (rank > 0) {
+      scMenu['Sign in'].menu = 0;
+    }
     if (rank > 1) {
-      scMenu['Apply'].menu = 0;
+      scMenu['Apply'].menu = 0;      
     }
     success(scMenu);
   }());

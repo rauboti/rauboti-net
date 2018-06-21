@@ -62,9 +62,15 @@ section {
   color: rgba(199, 156, 110, 1);
 }
 /* => Icons */
-.icon-home {
+.icon-home, .icon-signed-out, .icon-signed-in {
   background-repeat: no-repeat;
 }
 .icon-home {
   background: url('/ico/home.svg');
+}
+.icon-signed-out {
+  background: url('/ico/padlock_closed.svg');
+}
+.icon-signed-in {
+  background: url('/ico/padlock_open.svg');
 }
