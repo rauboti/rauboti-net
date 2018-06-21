@@ -40,7 +40,7 @@ function router() {
     });
   scarecrowRouter.route('/applications')
     .all((req, res, next) => {
-      if(req.user && req.user.rank === 6) {
+      if(req.user && req.user.rank >= 6) {
         next();
       } else {
         res.redirect('/scarecrow/signIn');
@@ -56,7 +56,7 @@ function router() {
     });
     scarecrowRouter.route('/applications/:id')
       .all((req, res, next) => {
-        if(req.user && req.user.rank === 6) {
+        if(req.user && req.user.rank >= 6) {
           next();
         } else {
           res.redirect('/scarecrow/signIn');
