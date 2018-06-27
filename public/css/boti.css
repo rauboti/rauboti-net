@@ -216,7 +216,7 @@ textarea {
   border: 1px solid rgba(var(--border-colour-focus), 1);
 }
 .input-text {
-  width: 200px;
+  width: 150px;
 }
 .input-text-big {
   width: 300px;
@@ -255,7 +255,7 @@ textarea {
   top: 300px;
   margin: auto;
   width: 40%;
-  min-width: 400px;
+  min-width: 600px;
   background-color: rgba(20, 20, 20, 1);
   color: white;
   border: 1px solid white;

@@ -55,6 +55,20 @@ var scarecrow = {
       return true;
     }
   },
+  _validateNewChar: function() {
+    $('#txtCharName').val() === '' ? $('#txtCharName').addClass('invalid') : $('#txtCharName').removeClass('invalid');
+    $('#txtCharName').val() === '' ? $('#txtCharNameError').html('Field required') : $('#txtCharNameError').html('');
+    $('#slctCharClass option:selected').text() === '' ? $('#slctCharClass').addClass('invalid') : $('#slctCharClass').removeClass('invalid');
+    $('#slctCharClass option:selected').text() === '' ? $('#slctCharClassError').html('Field required') : $('#slctCharClassError').html('');
+    $('#slctCharRole option:selected').text() === '' ? $('#slctCharRole').addClass('invalid') : $('#slctCharRole').removeClass('invalid');
+    $('#slctCharRole option:selected').text() === '' ? $('#slctCharRoleError').html('Field required') : $('#slctCharRoleError').html('');
+
+    if ($('#txtCharName').val() === '' || $('#slctCharClass option:selected').text() === '' || $('#slctCharRole option:selected').text() == '') {
+      return false;
+    } else {
+      return true;
+    }
+  },
   _validateSignIn: function() {
     let userValid = true;
     let pwValid = true;
@@ -117,27 +131,24 @@ var scarecrow = {
   addNewCharacter: function() {
     this._toggleFadeOut('#pageMainComponents');
 
-    $('#pageContainer').append('<div id="boxCreateCharacter" class="popupBox"><div class="popupBoxContainer">'
+    $('#pageContainer').append('<div id="boxCreateCharacter" class="popupBox"><form id="frmAddCharacter" name="frmAddCharacter" method="post" onsubmit="return scarecrow._validateNewChar()"><div class="popupBoxContainer">'
     +'<div class="popupBoxTitle">Create new character</div>'
     +'<div class="popupBoxElement">'
-    +'<div class="container-subgroup"><div class="container-element"><label for="txtCharName">Character name:</label></div><div class="container-element"><input id="txtCharName" type="input" class="input-text" required /></div></div>'
-    +'<div class="container-subgroup"><div class="container-element"><label for="txtCharClass">Character class:</label></div><div class="container-element"><select id="slctCharClass" class="input-text" required><select></div></div>'
-    +'<div class="container-subgroup"><div class="container-element"><label for="txtCharRole">Character role:</label></div><div class="container-element"><select id="slctCharRole" class="input-text" required><select></div></div>'
-    +'</div><div id="errorMessage" class="text-error"></div>'
-    +'</div><div class="buttonRow"><input id="btnSubmit" type="button" class="button input-button" value="Submit" /><input id="btnClose" type="button" class="button input-button" value="Cancel" /></div>'
+    +'<table><tr><td>Character name</td><td>Class</td><td>Role</td></tr>'
+    +'<tr><td valign="top"><div class="input-text-container"><input id="txtCharName" name="cName" type="input" class="input-text" /><div id="txtCharNameError" class="text-error"></div></div></td>'
+    +'<td valign="top"><div class="input-text-container"><select id="slctCharClass" name="cClass" class="input-text"></select><div id="slctCharClassError" class="text-error"></div></div></td>'
+    +'<td valign="top"><div class="input-text-container"><select id="slctCharRole" name="cRole" class="input-text"></select><div id="slctCharRoleError" class="text-error"></div></div></td></tr></table>'
+    +'</div></form><div class="buttonRow"><button id="btnSubmit" type="submit" name="accept" value="addNewCharacter" class="response-button icon-accept" form="frmAddCharacter"></button><button id="btnCancel" type="button" name="decline" value="decline" class="response-button icon-decline"></button></div>'
     +'</div>');
 
-    $('#btnClose').click(function() {
+    $('#btnCancel').click(function() {
       scarecrow.closeWindow('#boxCreateCharacter');
     });
-    $('#btnSubmit').click(function() {
-      if ($('#txtCharName').val() !== '' && $('#slctCharClass :selected').text() !== '' && $('#slctCharRole :selected').text() !== '') {
-        scarecrow.submitNewCharacter($('#txtCharName').val(), $('#slctCharClass :selected').text(), $('#slctCharRole :selected').text());
-      } else {
-        $('#errorMessage').html('All fields must be filled!')
-      }
-    });
+
     scarecrow.getCharacterClasses();
+    $('.input-text').change(function() {
+      scarecrow._validateNewChar();
+    });
   },
   closeWindow: function(win) {
     $(win).remove();

@@ -188,10 +188,21 @@ function router() {
         (async function dbQuery() {
           const characters = await sql.query('SELECT id, name, class, role FROM tblCharacter WHERE user_id = ?', [req.user.id]);
           const user = await sql.query('SELECT u.user, u.rank, r.name as "rankName", u.email, u.role FROM tblUser u JOIN tblRank r ON u.rank = r.id WHERE u.id = ?', [req.user.id]);
-          debug(user);
           res.render('sc-profile', { scMenu, activePage: 'Profile', characters, user, title: '<Scarecrow>' });
         }());
       });
+    })
+    .post((req, res) => {
+      (async function dbQuery() {
+        if (req.body.accept) {
+          if (req.body.accept === 'addNewCharacter') {
+            const result = await sql.query('INSERT INTO tblCharacter (name, class, role, user_id) VALUES (?, ?, ?, ?)', [req.body.cName, req.body.cClass, req.body.cRole, req.user.id]);
+          }
+        } else if (req.body.decline) {
+          //
+        }
+        res.redirect('/scarecrow/profile');
+      }());
     });
   scarecrowRouter.route('/progression').get((req, res) => {
     let rank = 0;
@@ -263,10 +274,6 @@ function router() {
     (async function dbQuery() {
       if (req.body.request === 'characterDelete') {
         const result = await sql.query('DELETE FROM tblCharacter WHERE id = ? AND name = ? AND class = ? AND user_id', [req.body.cID, req.body.cName, req.body.cClass, req.user.id]);
-        res.send('Success!');
-      }
-      else if (req.body.request === 'characterSubmitNew') {
-        const result = await sql.query('INSERT INTO tblCharacter (name, class, role, user_id) VALUES (?, ?, ?, ?)', [req.body.cName, req.body.cClass, req.body.cRole, req.user.id]);
         res.send('Success!');
       }
       else if (req.body.request === 'getCharacterClasses') {
