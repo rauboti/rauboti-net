@@ -194,9 +194,12 @@ function router() {
     })
     .post((req, res) => {
       (async function dbQuery() {
+        debug(req.body);
         if (req.body.accept) {
           if (req.body.accept === 'addNewCharacter') {
             const result = await sql.query('INSERT INTO tblCharacter (name, class, role, user_id) VALUES (?, ?, ?, ?)', [req.body.cName, req.body.cClass, req.body.cRole, req.user.id]);
+          } else if (req.body.accept === 'updateInfo') {
+            const result = await sql.query('UPDATE tblUser SET user = ?, email = ? WHERE id = ?', [req.body.username, req.body.email, req.user.id]);
           }
         } else if (req.body.decline) {
           //
@@ -279,10 +282,6 @@ function router() {
       else if (req.body.request === 'getCharacterClasses') {
         const result = await sql.query('SELECT name, isDamage, isSupport, isTank FROM tblClass WHERE available = 1')
         res.json(result);
-      }
-      else if (req.body.request === 'userInformationUpdate') {
-        const result = await sql.query('UPDATE tblUser SET user = ?, email = ? WHERE id = ?', [req.body.username, req.body.email, req.user.id]);
-        res.send('Success!');
       }
     }());
   });

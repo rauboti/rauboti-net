@@ -128,6 +128,16 @@ var scarecrow = {
       return true;
     }
   },
+  _validateUpdateInfo: function() {
+    $('#txtUsername').val() === '' ? $('#txtUsername').addClass('invalid') : $('#txtUsername').removeClass('invalid');
+    $('#txtUsername').val() === '' ? $('#txtUsernameError').html('Field required') : $('#txtUsernameError').html('');
+
+    if ($('#txtUsername').val() === '') {
+      return false;
+    } else {
+      return true;
+    }
+  },
   addNewCharacter: function() {
     this._toggleFadeOut('#pageMainComponents');
 
@@ -194,24 +204,22 @@ var scarecrow = {
   updateInfo: function(username, email) {
     this._toggleFadeOut('#pageMainComponents');
 
-    $('#pageContainer').append('<div id="boxUpdateInfo" class="popupBox"><div class="popupBoxContainer">'
+    $('#pageContainer').append('<div id="boxUpdateInfo" class="popupBox"><form id="frmUpdateInfo" name="frmAddCharacter" method="post" onsubmit="return scarecrow._validateUpdateInfo()"><div class="popupBoxContainer">'
     +'<div class="popupBoxTitle">Update user information</div>'
     +'<div class="popupBoxElement">'
-    +'<div class="container-subgroup"><div class="container-element"><label for="txtUsername">Username:</label></div><div class="container-element"><input id="txtUsername" type="input" class="input-text" value="' + username + '" required /></div></div>'
-    +'<div class="container-subgroup"><div class="container-element"><label for="txtEmail">Email:</label></div><div class="container-element"><input id="txtEmail" type="input" class="input-text" value="' + email + '" /></div></div>'
-    +'</div><div id="errorMessage" class="text-error"></div>'
-    +'</div><div class="buttonRow"><input id="btnSubmit" type="button" class="button input-button" value="Submit" /><input id="btnClose" type="button" class="button input-button" value="Cancel" /></div>'
+    +'<table><tr><td>Username</td><td>Email</td></tr>'
+    +'<tr><td valign="top"><div class="input-text-container"><input id="txtUsername" name="username" type="input" class="input-text" value="' + username + '" /><div id="txtUsernameError" class="text-error"></div></div></td>'
+    +'<td valign="top"><div class="input-text-container"><input id="txtEmail" name="email" type="input" class="input-text" value="' + email + '" /><div id="txtEmailError" class="text-error"></div></div></td></tr></table>'
+    +'</div></form><div class="buttonRow"><button id="btnSubmit" type="submit" name="accept" value="updateInfo" class="response-button icon-accept" form="frmUpdateInfo"></button><button id="btnCancel" type="button" name="decline" value="decline" class="response-button icon-decline"></button></div>'
     +'</div>');
 
-    $('#btnClose').click(function() {
+    $('#btnCancel').click(function() {
       scarecrow.closeWindow('#boxUpdateInfo');
     });
-    $('#btnSubmit').click(function() {
-      if ($('#txtUsername').val() !== '') {
-        scarecrow.submitUpdatedInfo($('#txtUsername').val(), $('#txtEmail').val());
-      } else {
-        $('#errorMessage').html('Unable to remove username');
-      }
+
+    scarecrow.getCharacterClasses();
+    $('.input-text').change(function() {
+      scarecrow._validateUpdateInfo();
     });
   }
 }

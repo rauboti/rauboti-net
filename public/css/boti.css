@@ -243,6 +243,7 @@ textarea {
   color: red;
   font-size: 12px;
   font-style: italic;
+  text-align: left;
 }
 .select-options2 {
   background-color: rgba(var(--bg-colour-alt), 1);

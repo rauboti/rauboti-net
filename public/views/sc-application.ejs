@@ -74,12 +74,12 @@
           <div class="container-foot">
             <form name="frmApplication" method="post">
               <div class="buttonRow">
-                <button type=submit name="back" value="back" class="response-button icon-back"></button>
+                <button type="submit" name="back" value="back" class="response-button icon-back"></button>
                 <% if (application[0].status === 'New' || application[0].status === 'Declined') {%>
-                  <button type=submit name="accept" value="accept" class="response-button icon-accept"></button>
+                  <button type="submit" name="accept" value="accept" class="response-button icon-accept"></button>
                 <%}
                 if (application[0].status === 'New' || application[0].status === 'Accepted') {%>
-                <button type=submit name="decline" value="decline" class="response-button icon-decline"></button>
+                <button type="submit" name="decline" value="decline" class="response-button icon-decline"></button>
                 <%}%>
               </div>
             <form>
