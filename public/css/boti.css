@@ -57,11 +57,13 @@ textarea {
   margin: 0;
 }
 /* => Other buttons */
-.button-icon-delete {
-  background-image: url('../ico/trashIcon.svg');
+.list-button {
   width: 15px;
   height: 15px;
   cursor: pointer;
+}
+.button-icon-delete {
+  background-image: url('../ico/trashIcon.svg');
 }
 .button-icon-delete:hover {
   background-image: url('../ico/trashIconHover.svg');
@@ -94,14 +96,20 @@ textarea {
   text-align: left;
 }
 .table-container-tiny-inner tr {
-  font-size: 20px;
+  font-size: 18px;
   padding: 5px;
-}
-.table-container-tiny-inner tr td {
-  width: 50%;
 }
 .table-container-tiny-inner tr:hover {
   background-color: rgba(255, 255, 255, 0.05);
+}
+.tr-col-2 {
+  width: 45%;
+}
+.tr-col-3 {
+  width: 30%;
+}
+.tr-col-4 {
+  width: 22.5%;
 }
 /* => menu classes <= */
 .nav-rauboti, .nav-sc {

@@ -40,7 +40,8 @@ function router() {
     .get((req, res) => {
       getPages(req.user.rank, function(scMenu){
         (async function dbQuery() {
-          res.render('sc', { scMenu, activePage: 'Admin', title: '<Scarecrow>' });
+          const userList = await sql.query('SELECT u.id, u.user, u.rank as "rankid", r.name as "rank", u.role FROM tblUser u JOIN tblRank r on r.id = u.rank ORDER BY u.rank DESC, u.user ASC');
+          res.render('sc-admin', { scMenu, activePage: 'Admin', title: '<Scarecrow>', userList });
         }());
       });
     });
@@ -177,7 +178,6 @@ function router() {
   scarecrowRouter.route('/profile')
     .all((req, res, next) => {
       if(req.user) {
-        debug(req.user);
         next();
       } else {
         res.redirect('/scarecrow/signIn');
@@ -194,7 +194,6 @@ function router() {
     })
     .post((req, res) => {
       (async function dbQuery() {
-        debug(req.body);
         if (req.body.accept) {
           if (req.body.accept === 'addNewCharacter') {
             const result = await sql.query('INSERT INTO tblCharacter (name, class, role, user_id) VALUES (?, ?, ?, ?)', [req.body.cName, req.body.cClass, req.body.cRole, req.user.id]);
@@ -225,7 +224,6 @@ function router() {
           x['status'] = result[i].status;
           progression[result[i].instance].push(x);
         }
-        //debug(progression);
         res.render('sc-progression', { scMenu, activePage: 'Progression', progression, title: '<Scarecrow>' });
       }());
     });
@@ -264,7 +262,7 @@ function router() {
       .post((req, res) => {
         (async function addUser() {
           const newUser = await sql.query('INSERT INTO tblUser (user, pw, email, rank) VALUES (?, ?, ?, 1)', [req.body.username, req.body.password, req.body.email]);
-          const getUser = await sql.query('SELECT id, pw, user, rank FROM tblUser WHERE user = ? AND pw = ?', [req.body.username, req.body.password]);
+          const getUser = await sql.query('SELECT id, user, rank FROM tblUser WHERE user = ? AND pw = ?', [req.body.username, req.body.password]);
           const user = getUser[0];
           req.login(user, () => {
             res.redirect('/scarecrow');
@@ -273,7 +271,6 @@ function router() {
       });
   // => API for the various database calls
   scarecrowRouter.route('/api').post((req, res) => {
-    debug(req.body);
     (async function dbQuery() {
       if (req.body.request === 'characterDelete') {
         const result = await sql.query('DELETE FROM tblCharacter WHERE id = ? AND name = ? AND class = ? AND user_id', [req.body.cID, req.body.cName, req.body.cClass, req.user.id]);

@@ -62,7 +62,7 @@ section {
   color: rgba(199, 156, 110, 1);
 }
 /* => Icons */
-.icon-home, .icon-accept, .icon-decline, .icon-back {
+.icon-home, .icon-accept, .icon-decline, .icon-back, .icon-edit {
   background-repeat: no-repeat;
 }
 .icon-home {
@@ -76,4 +76,7 @@ section {
 }
 .icon-back {
   background: url('/ico/back.svg');
+}
+.icon-edit {
+  background: url('/ico/edit.svg');
 }

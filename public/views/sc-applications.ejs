@@ -31,7 +31,7 @@
                 <table>
                 <% for (var i in applications) {
                   if (applications[i].status === 'New') {%>
-                    <tr>
+                    <tr class="tr-col-2">
                       <td><a href="/scarecrow/applications/<%=applications[i].id%>"><%=applications[i].character_name%> - Level <%=applications[i].character_level%> <%=applications[i].character_class%> (<%=applications[i].character_role%>)</a></td>
                     </tr>
                 <%}}%>
@@ -44,7 +44,7 @@
                 <table>
                 <% for (var i in applications) {
                   if (applications[i].status === 'Accepted') {%>
-                    <tr>
+                    <tr class="tr-col-2">
                       <td><a href="/scarecrow/applications/<%=applications[i].id%>">[<%=applications[i].character_level%>] <%=applications[i].character_name%> - <%=applications[i].character_class%> (<%=applications[i].character_role%>)</a></td>
                     </tr>
                 <%}}%>
@@ -57,7 +57,7 @@
                 <table>
                 <% for (var i in applications) {
                   if (applications[i].status === 'Declined') {%>
-                    <tr>
+                    <tr class="tr-col-2">
                       <td><a href="/scarecrow/applications/<%=applications[i].id%>">[<%=applications[i].character_level%>] <%=applications[i].character_name%> - <%=applications[i].character_class%> (<%=applications[i].character_role%>)</a></td>
                     </tr>
                 <%}}%>

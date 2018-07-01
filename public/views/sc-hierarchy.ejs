@@ -31,7 +31,7 @@
                 <table>
                   <% for (var i in users) {
                     if (users[i].rank === 'Guild Master') {%>
-                      <tr>
+                      <tr class="tr-col-2">
                         <td><%=users[i].user%></td>
                       </tr>
                     <%}}%>
@@ -44,7 +44,7 @@
                 <table>
                   <% for (var i in users) {
                     if (users[i].rank === 'Officer') {%>
-                      <tr>
+                      <tr class="tr-col-2">
                         <td><%=users[i].user%></td>
                         <td><%=users[i].role%></td>
                       </tr>
