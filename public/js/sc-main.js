@@ -9,6 +9,9 @@ $(document).ready(function() {
     if ($(this).attr('id').split('-')[1] === 'Progression') {
       $('.tblProgression').addClass('hidden');
       $(".boss-" + $(this).attr('id').split('-')[2]).removeClass('hidden');
+    } else if ($(this).attr('id').split('-')[1] === 'Applications') {
+      $('.tblApplications').addClass('hidden');
+      $(".app-" + $(this).attr('id').split('-')[2]).removeClass('hidden');
     }
     $('.menu-button-small').removeClass('menu-button-selected');
     $(this).addClass('menu-button-selected');

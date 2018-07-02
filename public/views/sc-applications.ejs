@@ -25,42 +25,19 @@
       <div class="container-sc">
         <div class="container-frame">
           <div class="container-body">
-            <div class="container-frame">New applications</div>
+            <div class="container-frame">
+              <div id="btn-Applications-New" class="menu-button-small"><div class="menu-button-text">New applications</div></div>
+              <div id="btn-Applications-Accepted" class="menu-button-small"><div class="menu-button-text">Accepted applications</div></div>
+              <div id="btn-Applications-Declined" class="menu-button-small"><div class="menu-button-text">Declined applications</div></div>
+            </div>
             <div class="table-container-tiny-outer">
               <div class="table-container-tiny-inner">
                 <table>
-                <% for (var i in applications) {
-                  if (applications[i].status === 'New') {%>
-                    <tr class="tr-col-2">
+                <% for (var i in applications) {%>
+                    <tr class="tblApplications app-<%=applications[i].status%> hidden tr-col-2">
                       <td><a href="/scarecrow/applications/<%=applications[i].id%>"><%=applications[i].character_name%> - Level <%=applications[i].character_level%> <%=applications[i].character_class%> (<%=applications[i].character_role%>)</a></td>
                     </tr>
-                <%}}%>
-                </table>
-              </div>
-            </div>
-            <div class="container-frame">Accepted applications</div>
-            <div class="table-container-tiny-outer">
-              <div class="table-container-tiny-inner">
-                <table>
-                <% for (var i in applications) {
-                  if (applications[i].status === 'Accepted') {%>
-                    <tr class="tr-col-2">
-                      <td><a href="/scarecrow/applications/<%=applications[i].id%>">[<%=applications[i].character_level%>] <%=applications[i].character_name%> - <%=applications[i].character_class%> (<%=applications[i].character_role%>)</a></td>
-                    </tr>
-                <%}}%>
-                </table>
-              </div>
-            </div>
-            <div class="container-frame">Declined applications</div>
-            <div class="table-container-tiny-outer">
-              <div class="table-container-tiny-inner">
-                <table>
-                <% for (var i in applications) {
-                  if (applications[i].status === 'Declined') {%>
-                    <tr class="tr-col-2">
-                      <td><a href="/scarecrow/applications/<%=applications[i].id%>">[<%=applications[i].character_level%>] <%=applications[i].character_name%> - <%=applications[i].character_class%> (<%=applications[i].character_role%>)</a></td>
-                    </tr>
-                <%}}%>
+                <%}%>
                 </table>
               </div>
             </div>
