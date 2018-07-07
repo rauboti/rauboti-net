@@ -45,6 +45,23 @@ function router() {
         }());
       });
     });
+  scarecrowRouter.route('/admin/user/:id')
+    .all((req, res, next) => {
+      if(req.user && req.user.rank === 8) {
+        next();
+      } else {
+        res.redirect('/scarecrow/signIn');
+      }
+    })
+    .get((req, res) => {
+      getPages(req.user.rank, function(scMenu){
+        (async function dbQuery() {
+          const { id }  = req.params;
+          const user = await sql.query('SELECT u.user, u.rank, r.name as "rankName", u.email, u.role FROM tblUser u JOIN tblRank r ON u.rank = r.id WHERE u.id = ?', [id]);
+          res.json(user)
+        }());
+      });
+    });
   scarecrowRouter.route('/applications')
     .all((req, res, next) => {
       if(req.user && req.user.rank >= 6) {
@@ -109,7 +126,13 @@ function router() {
     })
     .post((req, res) => {
       (async function submitApplication() {
-        const result = await sql.query('INSERT INTO tblApplications (user, status, character_name, character_class, character_role, character_level, spec, armory, raids, preparation, asset, mistakes, anything_else) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [req.user.id, 'New', req.body.characterName, req.body.characterClass, req.body.characterRole, req.body.characterLevel, req.body.specLink, req.body.armoryLink, req.body.numberRaids, req.body.preparation, req.body.asset, req.body.mistake, req.body.anythingElse]);
+        let ID = createID();
+        let appExcists = await sql.query('SELECT * from tblApplications WHERE id = ?', [ID]);
+        while (appExcists.length !== 0) {
+          ID = createID();
+          appExcists = await sql.query('SELECT * from tblApplications WHERE id = ?', [ID]);
+        }
+        const result = await sql.query('INSERT INTO tblApplications (id, user, status, character_name, character_class, character_role, character_level, spec, armory, raids, preparation, asset, mistakes, anything_else) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [ID, req.user.id, 'New', req.body.characterName, req.body.characterClass, req.body.characterRole, req.body.characterLevel, req.body.specLink, req.body.armoryLink, req.body.numberRaids, req.body.preparation, req.body.asset, req.body.mistake, req.body.anythingElse]);
         res.redirect('/scarecrow');
       }());
     });
@@ -261,7 +284,13 @@ function router() {
       })
       .post((req, res) => {
         (async function addUser() {
-          const newUser = await sql.query('INSERT INTO tblUser (user, pw, email, rank) VALUES (?, ?, ?, 1)', [req.body.username, req.body.password, req.body.email]);
+          let ID = createID();
+          let userExcists = await sql.query('SELECT * from tblUser WHERE id = ?', [ID]);
+          while (userExcists.length !== 0) {
+            ID = createID();
+            userExcists = await sql.query('SELECT * from tblUser WHERE id = ?', [ID]);
+          }
+          const newUser = await sql.query('INSERT INTO tblUser (id, user, pw, email, rank) VALUES (?, ?, ?, ?, 1)', [ID, req.body.username, req.body.password, req.body.email]);
           const getUser = await sql.query('SELECT id, user, rank FROM tblUser WHERE user = ? AND pw = ?', [req.body.username, req.body.password]);
           const user = getUser[0];
           req.login(user, () => {
@@ -303,6 +332,14 @@ function getPages(rank, success) {
     }
     success(scMenu);
   }());
+}
+
+function createID() {
+  function rndLtr() {
+    var digits = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    return digits.charAt(Math.floor(Math.random() * digits.length));
+  }
+  return rndLtr() + rndLtr() + rndLtr() + rndLtr() + '-' + rndLtr() + rndLtr() +  rndLtr() + rndLtr() + rndLtr() + rndLtr() + rndLtr() + '-' + rndLtr() + rndLtr() + rndLtr() + rndLtr() + rndLtr();
 }
 
 module.exports = router;
