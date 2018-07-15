@@ -37,21 +37,15 @@
                       <th></th>
                     </tr>
                     <% for (var i in userList) {%>
-                      <tr class="tr-col-3">
+                      <tr class="tr-col-3 tr-highlight">
                         <td><%=userList[i].user%></td>
                         <td><%=userList[i].rank%></td>
                         <td><%=userList[i].role%></td>
-                        <td><a href="/scarecrow/admin/user/<%=userList[i].id%>"><div class="button icon-edit list-button"></div></a></td>
+                        <td><a href="/scarecrow/admin/user/<%=userList[i].id%>"><div class="icon-edit list-button"></div></a></td>
                       </tr>
                     <%}%>
                   </table>
                 </div>
-              </div>
-
-            </div>
-            <div class="container-foot">
-              <div class="buttonRow">
-                <input id="btnUpdateInfo" type="button" class="button input-button" value="Update info" />
               </div>
             </div>
           </div>

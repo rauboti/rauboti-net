@@ -9,6 +9,7 @@
   --border-colour-alt: var(--white);
   --border-colour-focus: var(--cyan);
   --border-colour-selected: var(--cyan);
+  --border-colour-popup: var(--red);
 
   /* => available colours */
   --red: 255, 0, 0;
@@ -58,8 +59,8 @@ textarea {
 }
 /* => Other buttons */
 .list-button {
-  width: 15px;
-  height: 15px;
+  width: 25px;
+  height: 25px;
   cursor: pointer;
 }
 .button-icon-delete {
@@ -99,17 +100,25 @@ textarea {
   font-size: 18px;
   padding: 5px;
 }
-.table-container-tiny-inner tr:hover {
+.tr-highlight:hover {
   background-color: rgba(255, 255, 255, 0.05);
 }
-.tr-col-2 {
+.tr-col-2 td, .tr-col-2 th, .tr-col-3 td, .tr-col-3 th, .tr-col-4 td, .tr-col-4 th {
+  padding: 5px;
+}
+
+.tr-col-2 td, .tr-col-2 th {
   width: 45%;
 }
-.tr-col-3 {
+.tr-col-3 td, .tr-col-3 th {
   width: 30%;
 }
-.tr-col-4 {
+.tr-col-4 td, .tr-col-4 th {
   width: 22.5%;
+}
+.tr-col-4 th {
+  text-align: right;
+  padding-right: 10px;
 }
 /* => menu classes <= */
 .nav-rauboti, .nav-sc {
@@ -242,7 +251,7 @@ textarea {
   font-size: 1.05em;
   background-color: rgba(var(--bg-colour), 0.5);
   border: 1px solid rgba(var(--bg-colour), 0);
-  width: 150px;
+  width: 160px;
 }
 .input-container{
   margin:10px;
@@ -268,6 +277,20 @@ textarea {
   background-color: rgba(20, 20, 20, 1);
   color: white;
   border: 1px solid white;
+}
+.popupForm {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 300px;
+  margin: auto;
+  width: 40%;
+  min-width: 600px;
+}
+.popupForm .container-frame {
+  border: 1px solid rgba(45, 45, 60, 1);;
+  box-shadow: 0 0 5px rgba(45, 45, 60, 1);;
+  background-color: rgba(45, 45, 60, 1);
 }
 .popupBoxElement {
   text-align: left;

@@ -11,7 +11,7 @@ var scarecrow = {
     });
   },
   _boxConfirm: function(attr, callbackConfirm, callbackDecline) {
-    this._toggleFadeOut('#pageMainComponents');
+    this._toggleFadeOut('.pageMainComponents');
     $('#pageContainer').append('<div id="boxConfirm" class="popupBox"><div class="popupBoxContainer"><div class="popupBoxTitle">' + attr.type + '</div><div class="popupBoxElement">' + attr.question + '</div><div class="buttonRow"><button id="resAccept" class="input-button">Yes</button><button id="resDecline" class="input-button">No</button></div></div></div>');
     $('#resAccept').click(function () {
       $('#boxConfirm').remove();
@@ -20,6 +20,22 @@ var scarecrow = {
     $('#resDecline').click(function () {
       $('#boxConfirm').remove();
       callbackDecline();
+    });
+  },
+  _confirm: function(frmId, validationFunction, title, text, confirmName, confirmValue) {
+    $('.container-sc').append('<form class="popupForm" id="' + frmId + '" name="' + frmId + '" method="post" onsubmit="return scarecrow.' + validationFunction + '();">'
+    + '<div class="container-frame">'
+    + '<div class="container-headline">' + title + '</div>'
+    + '<div class="container-body">' + text + '</div>'
+    + '<div class="container-foot"><div class="buttonRow">'
+    + '<button id="btnDecline" type="submit" name="back" value="back" class="response-button icon-decline"></button>'
+    + '<button id="btnConfirm" type="submit" name="' + confirmName + '" value="' + confirmValue + '" class="response-button icon-accept"></button>'
+    + '</div></div>'
+    + '</div>'
+    + '</form>'
+    );
+    $('.response-button').click(function() {
+      clicked = $(this).attr('id').split('btn')[1];
     });
   },
   _toggleFadeOut: function(object) {
@@ -55,6 +71,14 @@ var scarecrow = {
       return true;
     }
   },
+  _validateCharacterForm: function() {
+    $('#txtCharName').val() === '' ? $('#txtCharName').addClass('invalid') : $('#txtCharName').removeClass('invalid');
+    $('#txtCharName').val() === '' ? $('#txtCharNameError').html('Field required') : $('#txtCharNameError').html('');
+    $('#slctCharClass option:selected').text() === '' ? $('#slctCharClass').addClass('invalid') : $('#slctCharClass').removeClass('invalid');
+    $('#slctCharClass option:selected').text() === '' ? $('#slctCharClassError').html('Field required') : $('#slctCharClassError').html('');
+    $('#slctCharRole option:selected').text() === '' ? $('#slctCharRole').addClass('invalid') : $('#slctCharRole').removeClass('invalid');
+    $('#slctCharRole option:selected').text() === '' ? $('#slctCharRoleError').html('Field required') : $('#slctCharRoleError').html('');
+  },
   _validateNewChar: function() {
     $('#txtCharName').val() === '' ? $('#txtCharName').addClass('invalid') : $('#txtCharName').removeClass('invalid');
     $('#txtCharName').val() === '' ? $('#txtCharNameError').html('Field required') : $('#txtCharNameError').html('');
@@ -67,6 +91,39 @@ var scarecrow = {
       return false;
     } else {
       return true;
+    }
+  },
+  _validateUserAdmin: function() {
+    if (clicked === 'Back') {
+      return true;
+    } else if (clicked === 'Delete') {
+      this._confirm('frmConfirmUserActions', '_validateUserAdmin', 'Delete user', 'Are you sure you want to delete this user?', 'delete', 'user');
+      this._toggleFadeOut('.pageMainComponent');
+      return false;
+    } else if (clicked === 'Decline') {
+      $('#frmConfirmUserActions').remove();
+      this._toggleFadeOut('.pageMainComponent');
+      return false;
+    } else if (clicked === 'Confirm') {
+      return true;
+    }
+  },
+  _validateUserCharacter: function() {
+    if (clicked === 'AddCharacter') {
+      this._toggleFadeOut('.pageMainComponent');
+      this.addCharacter('frmCharacterDetails', '_validateUserCharacter', 'add', 'character');
+      return false;
+    } else if (clicked === 'Decline') {
+      $('#frmCharacterDetails').remove();
+      this._toggleFadeOut('.pageMainComponent');
+      return false;
+    } else if (clicked === 'Confirm') {
+      this._validateCharacterForm();
+      if ($('#txtCharName').val() === '' || $('#slctCharClass option:selected').text() === '' || $('#slctCharRole option:selected').text() == '') {
+        return false;
+      } else {
+        return true;
+      }
     }
   },
   _validateSignIn: function() {
@@ -138,43 +195,45 @@ var scarecrow = {
       return true;
     }
   },
-  addNewCharacter: function() {
-    this._toggleFadeOut('#pageMainComponents');
-
-    $('#pageContainer').append('<div id="boxCreateCharacter" class="popupBox"><form id="frmAddCharacter" name="frmAddCharacter" method="post" onsubmit="return scarecrow._validateNewChar()"><div class="popupBoxContainer">'
-    +'<div class="popupBoxTitle">Create new character</div>'
-    +'<div class="popupBoxElement">'
-    +'<table><tr><td>Character name</td><td>Class</td><td>Role</td></tr>'
-    +'<tr><td valign="top"><div class="input-text-container"><input id="txtCharName" name="cName" type="input" class="input-text" /><div id="txtCharNameError" class="text-error"></div></div></td>'
-    +'<td valign="top"><div class="input-text-container"><select id="slctCharClass" name="cClass" class="input-text"></select><div id="slctCharClassError" class="text-error"></div></div></td>'
-    +'<td valign="top"><div class="input-text-container"><select id="slctCharRole" name="cRole" class="input-text"></select><div id="slctCharRoleError" class="text-error"></div></div></td></tr></table>'
-    +'</div></form><div class="buttonRow"><button id="btnSubmit" type="submit" name="accept" value="addNewCharacter" class="response-button icon-accept" form="frmAddCharacter"></button><button id="btnCancel" type="button" name="decline" value="decline" class="response-button icon-decline"></button></div>'
-    +'</div>');
-
-    $('#btnCancel').click(function() {
-      scarecrow.closeWindow('#boxCreateCharacter');
+  addCharacter: function(frmId, validationFunction, confirmName, confirmValue) {
+    $('.container-sc').append('<form class="popupForm" id="' + frmId + '" name="' + frmId + '" method="post" onsubmit="return scarecrow.' + validationFunction + '();">'
+    + '<div class="container-frame">'
+    + '<div class="container-headline">Add character</div>'
+    + '<div class="container-body">'
+    + '<table><tr><td>Character name</td><td>Class</td><td>Role</td></tr>'
+    + '<tr><td valign="top"><div class="input-text-container"><input id="txtCharName" name="cName" type="input" class="input-text" /><div id="txtCharNameError" class="text-error"></div></div></td>'
+    + '<td valign="top"><div class="input-text-container"><select id="slctCharClass" name="cClass" class="input-text"></select><div id="slctCharClassError" class="text-error"></div></div></td>'
+    + '<td valign="top"><div class="input-text-container"><select id="slctCharRole" name="cRole" class="input-text"></select><div id="slctCharRoleError" class="text-error"></div></div></td></tr></table></div>'
+    + '<div class="container-foot"><div class="buttonRow">'
+    + '<button id="btnDecline" type="submit" name="back" value="back" class="response-button icon-decline"></button>'
+    + '<button id="btnConfirm" type="submit" name="' + confirmName + '" value="' + confirmValue + '" class="response-button icon-accept"></button>'
+    + '</div></div>'
+    + '</div>'
+    + '</form>'
+    );
+    $('.response-button').click(function() {
+      clicked = $(this).attr('id').split('btn')[1];
     });
-
-    scarecrow.getCharacterClasses();
+    scarecrow.getCharacterClasses('../../../scarecrow/api');
     $('.input-text').change(function() {
-      scarecrow._validateNewChar();
+      scarecrow._validateCharacterForm();
     });
   },
   closeWindow: function(win) {
     $(win).remove();
-    this._toggleFadeOut('#pageMainComponents');
+    this._toggleFadeOut('.pageMainComponent');
   },
   deleteCharacter: function (cID, cName, cClass) {
     var data = { request: 'characterDelete', cID: cID, cName: cName, cClass: cClass };
     this._apiLocationReload(data);
   },
-  getCharacterClasses: function() {
+  getCharacterClasses: function(url) {
     var data = { request: 'getCharacterClasses' };
     $.ajax({
       type: 'POST',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      url: '../scarecrow/api',
+      url: url,
       success: function(classes) {
         $('#slctCharClass').html('<option class="select-options2" selected></option>');
         for (var i in classes) {
@@ -202,9 +261,9 @@ var scarecrow = {
     this._apiLocationReload(data);
   },
   updateInfo: function(username, email) {
-    this._toggleFadeOut('#pageMainComponents');
+    this._toggleFadeOut('.pageMainComponent');
 
-    $('#pageContainer').append('<div id="boxUpdateInfo" class="popupBox"><form id="frmUpdateInfo" name="frmAddCharacter" method="post" onsubmit="return scarecrow._validateUpdateInfo()"><div class="popupBoxContainer">'
+    $('#pageContainer').append('<div id="boxUpdateInfo" class="popupBox"><form id="frmUpdateInfo" name="frmUpdateInfo" method="post" onsubmit="return scarecrow._validateUpdateInfo()"><div class="popupBoxContainer">'
     +'<div class="popupBoxTitle">Update user information</div>'
     +'<div class="popupBoxElement">'
     +'<table><tr><td>Username</td><td>Email</td></tr>'
@@ -217,7 +276,7 @@ var scarecrow = {
       scarecrow.closeWindow('#boxUpdateInfo');
     });
 
-    scarecrow.getCharacterClasses();
+    scarecrow.getCharacterClasses('../scarecrow/api');
     $('.input-text').change(function() {
       scarecrow._validateUpdateInfo();
     });

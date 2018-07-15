@@ -34,7 +34,7 @@
               <div class="table-container-tiny-inner">
                 <table>
                 <% for (var i in applications) {%>
-                    <tr class="tblApplications app-<%=applications[i].status%> hidden tr-col-2">
+                    <tr class="tblApplications app-<%=applications[i].status%> hidden tr-col-2 tr-highlight">
                       <td><a href="/scarecrow/applications/<%=applications[i].id%>"><%=applications[i].character_name%> - Level <%=applications[i].character_level%> <%=applications[i].character_class%> (<%=applications[i].character_role%>)</a></td>
                     </tr>
                 <%}%>

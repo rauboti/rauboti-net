@@ -1,4 +1,8 @@
+var clicked;
 $(document).ready(function() {
+  $('.response-button').click(function() {
+    clicked = $(this).attr('id').split('btn')[1];
+  });
   $('.signup-input').blur(function() {
     scarecrow._validateSignUp();
   });
@@ -17,7 +21,7 @@ $(document).ready(function() {
     $(this).addClass('menu-button-selected');
   });
   $('.button').click(function() {
-    if ($(this).attr('id').split('btn')[1] === 'AddCharacter') { scarecrow.addNewCharacter(); }
+    if ($(this).attr('id').split('btn')[1] === 'AddCharacter') { scarecrow.addCharacter('frmCharacterDetails', '_validateUserCharacter', 'add', 'character'); }
     else if ($(this).attr('id').split('btn')[1].split('_')[0] === 'DeleteCharacter') {
       const cID = $(this).attr('id').split('btn')[1].split('_')[1];
       var attr = {
@@ -27,9 +31,9 @@ $(document).ready(function() {
       };
       scarecrow._boxConfirm(attr, function(cID) {
         scarecrow.deleteCharacter(cID, $('#character_' + cID).children('.charName').text(), $('#character_' + cID).children('.charClass').text(), $('#character_' + cID).children('.charRole').text());
-        scarecrow._toggleFadeOut('#pageMainComponents');
+        scarecrow._toggleFadeOut('.pageMainComponents');
       }, function() {
-        scarecrow._toggleFadeOut('#pageMainComponents');
+        scarecrow._toggleFadeOut('.pageMainComponents');
       });
     }
     else if ($(this).attr('id').split('btn')[1].split('_')[0] === 'UpdateInfo') { scarecrow.updateInfo($('#tblUsername').text(), $('#tblEmail').text()); }
