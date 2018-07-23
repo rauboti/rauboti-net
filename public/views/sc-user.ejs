@@ -68,11 +68,18 @@
                 <div class="table-container-tiny-inner">
                   <table>
                     <%for (var i in characters) {%>
-                      <tr id="character_<%=characters[i].id%>" class="tr-col-3">
-                        <td class="charRole role<%=characters[i].role%>"></td>
-                        <td class="charName"><%=characters[i].name%></td>
-                        <td class="charClass clr<%=characters[i].class%>"><%=characters[i].class%></td>
+                      <tr id="character_<%=characters[i].id%>" class="tr-col-3 tr-highlight">
+                        <td><div class="charName clr<%=characters[i].class%>"><%=characters[i].name%></div><div><div class="charRole role<%=characters[i].role%>"></div><span class="charLevel">60</span> <span class="charClass"><%=characters[i].class%></span></div></td>
+                        <% if (characters[i].main === 'main') {%>
+                        <td><%=characters[i].main%></td>
                         <td><div id="btnDeleteCharacter_<%=characters[i].id%>" class="button icon-delete list-button"></div></td>
+                        <%} else if (characters[i].main === 'alt') {%>
+                        <td></td>
+                        <td>
+                          <button id="btnDeleteCharacter_<%=characters[i].id%>" type="button" name="delete" value="character" class="button icon-delete list-button"></button>
+                          <button id="btnChangeMainCharacter" type="submit" name="edit" value="mainCharacter_<%=characters[i].id%>" class="button icon-m list-button"></button>
+                        </td>
+                        <%}%>
                       </tr>
                     <%}%>
                   </table>

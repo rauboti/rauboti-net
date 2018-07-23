@@ -87,6 +87,10 @@ function router() {
             const result = await sql.query('INSERT INTO tblCharacter (name, class, role, user_id, main) VALUES (?, ?, ?, ?, ?)', [req.body.cName, req.body.cClass, req.body.cRole, req.params.id, 'alt']);
             res.redirect(req.get('referer'));
           }
+        } else if (req.body.edit) {
+          const resetMainCharacters = await sql.query('UPDATE tblCharacter SET main = ? WHERE user_id = ?', ['alt', req.params.id]);
+          const setNewMainCharacter = await sql.query('UPDATE tblCharacter SET main = ? WHERE user_id = ? AND id = ?', ['main', req.params.id, req.body.edit.split('_')[1]])
+          res.redirect(req.get('referer'));
         }
       }());
     });

@@ -65,25 +65,21 @@
                   <div class="table-container-tiny-inner">
                     <% if ('main' in characterList) {%>
                       <table>
-                        <h4>Main</h4>
                       <%for (var i in characterList['main']) {%>
-                        <tr id="character_<%=characterList['main'][i].id%>" class="tr-col-3 tr-highlight">
-                          <td class="charRole role<%=characterList['main'][i].role%>"></td>
-                          <td class="charName"><%=characterList['main'][i].name%></td>
-                          <td class="charClass clr<%=characterList['main'][i].class%>"><%=characterList['main'][i].class%></td>
+                        <tr id="character_<%=characterList['main'][i].id%>" class="tr-col-2 tr-highlight">
+                          <td><div class="charName clr<%=characterList['main'][i].class%>"><%=characterList['main'][i].name%></div><div><div class="charRole role<%=characterList['main'][i].role%>"></div><span class="charLevel">60</span> <span class="charClass"><%=characterList['main'][i].class%></span></div></td>
+                          <td>main</td>
                           <td><div id="btnDeleteCharacter_<%=characterList['main'][i].id%>" class="button icon-delete list-button"></div></td>
                         </tr>
                       <%}%>
                       </table>
-                      <h4>Alts</h4>
                     <%}
                     if ('alt' in characterList) {%>
                       <table>
                       <%for (var i in characterList['alt']) {%>
-                        <tr id="character_<%=characterList['alt'][i].id%>" class="tr-col-3 tr-highlight">
-                          <td class="charRole role<%=characterList['alt'][i].role%>"></td>
-                          <td class="charName"><%=characterList['alt'][i].name%></td>
-                          <td class="charClass clr<%=characterList['alt'][i].class%>"><%=characterList['alt'][i].class%></td>
+                        <tr id="character_<%=characterList['alt'][i].id%>" class="tr-col-2 tr-highlight">
+                          <td><div class="charName clr<%=characterList['alt'][i].class%>"><%=characterList['alt'][i].name%></div><div><div class="charRole role<%=characterList['alt'][i].role%>"></div><span class="charLevel">60</span> <span class="charClass"><%=characterList['alt'][i].class%></span></div></td>
+                          <td></td>
                           <td><div id="btnDeleteCharacter_<%=characterList['alt'][i].id%>" class="button icon-delete list-button"></div></td>
                         </tr>
                       <%}%>

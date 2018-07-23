@@ -15,6 +15,8 @@ section {
 .roleDamage, .roleSupport, .roleTank {
   background-repeat: no-repeat;
   background-position:center;
+  width: 25px;
+  height: 20px;
 }
 .roleDamage {
   background-image: url('/ico/icoDamage.png');
@@ -24,6 +26,20 @@ section {
 }
 .roleSupport {
   background-image: url('/ico/icoSupport.png');
+}
+.charLevel, .charClass, .charRole {
+  display: inline-block;
+  vertical-align:middle;
+  font-size: 0.7em;
+}
+.trLevel {
+  width: 10%;
+}
+.trName {
+  width: 70%;
+}
+.trActions {
+  width: 20%;
 }
 /* => Classes w/colours */
 .clrDeath-Knight {
@@ -63,8 +79,9 @@ section {
   color: rgba(199, 156, 110, 1);
 }
 /* => Icons */
-.icon-home, .icon-accept, .icon-decline, .icon-back, .icon-edit, .icon-delete, .icon-add {
+.icon-home, .icon-accept, .icon-decline, .icon-back, .icon-edit, .icon-delete, .icon-add, .icon-m {
   background-repeat: no-repeat;
+  display: inline-block;
 }
 .icon-home {
   background: url('/ico/home.svg');
@@ -86,4 +103,7 @@ section {
 }
 .icon-add {
   background: url('/ico/add.svg');
+}
+.icon-m {
+  background: url('/ico/m.svg');
 }

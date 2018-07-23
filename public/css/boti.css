@@ -62,6 +62,9 @@ textarea {
   width: 25px;
   height: 25px;
   cursor: pointer;
+  border: none;
+  display: inline-block;
+  margin: 5px;
 }
 .button-icon-delete {
   background-image: url('../ico/trashIcon.svg');

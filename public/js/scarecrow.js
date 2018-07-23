@@ -109,6 +109,7 @@ var scarecrow = {
     }
   },
   _validateUserCharacter: function() {
+    console.log(clicked);
     if (clicked === 'AddCharacter') {
       this._toggleFadeOut('.pageMainComponent');
       this.addCharacter('frmCharacterDetails', '_validateUserCharacter', 'add', 'character');
@@ -124,6 +125,8 @@ var scarecrow = {
       } else {
         return true;
       }
+    } else if (clicked === 'ChangeMainCharacter') {
+      return true;
     }
   },
   _validateSignIn: function() {

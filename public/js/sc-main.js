@@ -3,6 +3,9 @@ $(document).ready(function() {
   $('.response-button').click(function() {
     clicked = $(this).attr('id').split('btn')[1];
   });
+  $('.list-button').click(function() {
+    clicked = $(this).attr('id').split('btn')[1];
+  });
   $('.signup-input').blur(function() {
     scarecrow._validateSignUp();
   });
