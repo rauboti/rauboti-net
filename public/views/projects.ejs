@@ -20,7 +20,12 @@
   </head>
   <body>
     <section id="pageContainer">
-      <div class="container-rauboti">This is the Home page</div>
+      <div id="cntrCode" class="container-rauboti">
+        <h1># Project list</h1>
+        <% for (var i = 0; i < projects.length; i++) {%>
+          <a href="<%=projects[i].link%>" target="_blank"><div class="container-rauboti-group project-box"><h2><%=projects[i].name%></h2><div class="project-description"><%=projects[i].description%></div></div></a>
+        <%}%>
+      </div>
     </section>
   </body>
   <foot>

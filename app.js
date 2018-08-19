@@ -6,24 +6,23 @@ const morgan = require('morgan');
 const path = require('path');
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
-const passport = require('passport');
+//const passport = require('passport');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
+//const session = require('express-session');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 // => defining routes
-const projectRouter = express.Router();
-const scarecrowRouter = require('./src/routes/scRoutes')();
+const raubotiRouter = require('./src/routes/raubotiRoutes')();
 
 // => extra logging (morgan), parsing av POST requests (body-parser) & favicon
 app.use(morgan('tiny'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: 'scarecrow' }));
-require('./src/config/passport.js')(app);
+//app.use(session({ secret: 'scarecrow' }));
+//require('./src/config/passport.js')(app);
 app.use(favicon(path.join(__dirname, '/public/ico', 'favicon.ico')));
 
 // => static folder for source files
@@ -38,16 +37,7 @@ app.set('views', './public/views');
 app.set('view engine', 'ejs');
 
 // => returning index file if root is accessed
-app.get('/', (req, res) => {
-  res.render('index',
-  {
-    menuItem: [{text: 'Front page', id: 'pHome'},
-      {text: 'Projects', id: 'pProjects'},
-      {text: 'About', id: 'pAbout'}], title: 'Rauboti.net'
-  });
-});
-// => using the scarecrow router if /scarecrow are called
-app.use('/scarecrow', scarecrowRouter);
+app.use('/', raubotiRouter);
 
 // => listening to port
 app.listen(port, () => {
