@@ -20,7 +20,5 @@ section {
   font-family: 'Rajdhani', sans-serif;
   display: block;
   text-align: center;
-}
-.project-description {
-  opacity: 0;
+  color: white;
 }

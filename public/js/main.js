@@ -1,8 +1,9 @@
+deviceAdjustment();
 $(document).ready(function() {
-  $('.project-box').mouseover(function() {
-    $(this).children('.project-description').animate({ opacity: 1}, 700);
+  $('.container-group').mouseenter(function() {
+    $(this).children('.container-text').animate({ opacity: 1}, 700);
   });
-  $('.project-box').mouseleave(function() {
-    $(this).children('.project-description').animate({ opacity: 0}, 200);
+  $('.container-group').mouseleave(function() {
+    $(this).children('.container-text').animate({ opacity: 0}, 200);
   });
 });

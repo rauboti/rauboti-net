@@ -7,25 +7,27 @@
     <!-- CSS source files -->
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/boti.css" />
-    <nav class="nav-rauboti">
-      <menu class="menu-rauboti">
+    <link rel="stylesheet" href="/css/responsive.css" />
+    <nav>
+      <menu>
         <% for(var i=0; i<menu.length; i++) {
           if (menu[i].id === activePage) {%>
-          <a href="<%=menu[i].path%>"><div id="<%=menu[i].id%>" class="menu-button-big menu-button-selected"><div class="menu-button-text"><%=menu[i].text%></div></div></a>
+          <a href="<%=menu[i].path%>"><div id="<%=menu[i].id%>" class="menu-button menu-button-selected"><div class="menu-button-text"><%=menu[i].text%></div></div></a>
         <%} else {%>
-          <a href="<%=menu[i].path%>"><div id="<%=menu[i].id%>" class="menu-button-big"><div class="menu-button-text"><%=menu[i].text%></div></div></a>
+          <a href="<%=menu[i].path%>"><div id="<%=menu[i].id%>" class="menu-button"><div class="menu-button-text"><%=menu[i].text%></div></div></a>
         <%}}%>
       </menu>
     </nav>
   </head>
   <body>
-    <section id="pageContainer">
-      <div class="container-rauboti">This is the Home page</div>
+    <section>
+      <div class="container">This is the Home page</div>
     </section>
   </body>
   <foot>
     <!-- JS source files -->
     <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/mobile.js"></script>
     <script src="/js/main.js"></script>
   </foot>
 </html>
