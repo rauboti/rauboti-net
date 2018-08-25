@@ -1,3 +1,22 @@
+/* => setting defaults */
+:root {
+  --menu-text-colour: var(--black);
+  --menu-bg-colour: var(--white);
+  --container-bg-colour: var(--black);
+  --text-colour: var(--white);
+  --bg-colour: var(--white);
+  --text-colour-selected: var(--red);
+  --border-colour-selected: var(--red);
+
+  /* => available colours */
+  --red: 255, 0, 0;
+  --green: 0, 255, 0;
+  --blue: 0, 0, 255;
+  --cyan: 81, 203, 238;
+  --white: 255, 255, 255;
+  --orange: 255,100,0;
+  --black: 0, 0, 0;
+}
 html, body, nav, menu, head {
   margin: 0;
   padding: 0;
@@ -6,7 +25,15 @@ a {
   text-decoration: inherit;
   color: inherit;
 }
+a:focus {
+  outline: none;
+  box-shadow: none;
+  border-color:transparent;
+}
 nav {
+  text-align: center;
+  font-family: 'Rajdhani', sans-serif;
+  display: block;
   margin-top: 50px;
 }
 html {
@@ -21,4 +48,52 @@ section {
   display: block;
   text-align: center;
   color: white;
+}
+h1, h2 {
+  text-align: left;
+}
+.menu-button {
+  display: inline-block;
+  cursor: pointer;
+  padding: 15px;
+}
+.menu-button-text {
+  display: inline-block;
+}
+.menu-button-text:hover {
+  -webkit-transform: scale(1.075);
+  -moz-transform: scale(1.075);
+  -ms-transform: scale(1.075);
+  -o-transform: scale(1.075);
+  transform: scale(1.075);
+}
+.menu-button-selected {
+  box-shadow: 0 0 5px rgba(var(--border-colour-selected), 1);
+  color: rgba(var(--text-colour-selected), 1);
+  border-bottom: 1px solid rgba(var(--border-colour-selected), 1);
+}
+/* => container classes <= */
+.container-group {
+  display: block;
+  text-align: left;
+  padding: 10px;
+  margin: 10px;
+  color: rgba(var(--text-colour), 1);
+}
+.container-headline {
+  text-align: left;
+}
+.container-headline {
+  margin-bottom: 40px;
+}
+.container-text {
+  font-style: italic;
+}
+.container {
+  overflow: scroll;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+.container::-webkit-scrollbar {
+  width: 0 !important;
 }

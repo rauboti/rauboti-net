@@ -27,6 +27,7 @@ function deviceAdjustment() {
     $('.container-group').addClass('container-group-mobile');
     $('.container-headline').addClass('container-headline-mobile');
     $('.container-text').addClass('container-text-mobile');
+    $('.hover-visible').addClass('hover-visible-mobile');
     $('.menu-button').addClass('menu-button-mobile');
   } else {
     $('menu').addClass('menu-desktop');

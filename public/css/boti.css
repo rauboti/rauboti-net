@@ -1,99 +1,15 @@
-/* => setting defaults */
-:root {
-  --text-colour: var(--black);
-  --text-colour-alt: var(--white);
-  --text-colour-selected: var(--cyan);
-  --bg-colour: var(--white);
-  --bg-colour-alt: var(--black);
-  --border-colour: var(--black);
-  --border-colour-alt: var(--white);
-  --border-colour-focus: var(--cyan);
-  --border-colour-selected: var(--cyan);
-  --border-colour-popup: var(--red);
-
-  /* => available colours */
-  --red: 255, 0, 0;
-  --green: 0, 255, 0;
-  --blue: 0, 0, 255;
-  --cyan: 81, 203, 238;
-  --white: 255, 255, 255;
-  --orange: 255,100,0;
-  --black: 0, 0, 0;
+.col-40 {
+  width: 35%;
 }
-/* => Generals */
-html, body, nav, menu, head {
-  margin: 0;
-  padding: 0;
+.col-60 {
+  width: 55%;
 }
 
-h1, h2 {
-  text-align: left;
-}
-
-a {
-  text-decoration: inherit;
-  color: inherit;
-}
-a:focus {
-  outline: none;
-  box-shadow: none;
-  border-color:transparent;
-}
-/* => menu classes <= */
-nav {
-  text-align: center;
-  font-family: 'Rajdhani', sans-serif;
-  display: block;
-  margin-top: 50px;
-}
-.menu-button {
+.is-inline {
   display: inline-block;
-  cursor: pointer;
-  padding: 15px;
+  vertical-align: top;
 }
-.menu-button-text {
-  display: inline-block;
-}
-.menu-button-text:hover {
-  -webkit-transform: scale(1.075);
-  -moz-transform: scale(1.075);
-  -ms-transform: scale(1.075);
-  -o-transform: scale(1.075);
-  transform: scale(1.075);
-}
-.menu-button-selected {
-  box-shadow: 0 0 5px rgba(var(--border-colour-selected), 1);
-  color: rgba(var(--text-colour-selected), 1);
-  border-bottom: 1px solid rgba(var(--border-colour-selected), 1);
-}
-.menu-button-icon {
-  height: 1.2em;
-  width: 1.2em;
-}
-/* => container classes <= */
-.container-group {
-  display: block;
-  text-align: left;
-  padding: 10px;
-  margin: 10px;
-  color: rgba(var(--bg-colour), 1);
-}
-.container-headline {
-  text-align: left;
-}
-.container-text {
+
+.hover-visible {
   opacity: 0;
-  font-style: italic;
-}
-.container-body {
-  background-color: rgba(var(--bg-colour-alt), 0.9);
-  color: rgba(var(--text-colour-alt), 1);
-  padding: 10px;
-  max-height: 600px;
-  overflow: scroll;
-  overflow: -moz-scrollbars-none;
-  -ms-overflow-style: none;
-}
-.container-body::-webkit-scrollbar {
-  width: 0 !important;
 }

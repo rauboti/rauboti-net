@@ -23,7 +23,7 @@
     <section>
       <div class="container">
         <% for (var i = 0; i < projects.length; i++) {%>
-          <a href="<%=projects[i].link%>" target="_blank"><div class="container-group"><div class="container-headline"><%=projects[i].name%></div><div class="container-text"><%=projects[i].description%></div></div></a>
+          <a href="<%=projects[i].link%>" target="_blank"><div class="container-group"><div class="container-headline is-inline col-40"><%=projects[i].name%></div><div class="container-text is-inline col-60 hover-visible"><%=projects[i].description%></div></div></a>
         <%}%>
       </div>
     </section>
