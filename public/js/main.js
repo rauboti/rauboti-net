@@ -1,4 +1,3 @@
-deviceAdjustment();
 $(document).ready(function() {
   $('.container-group').mouseenter(function() {
     $(this).children('.hover-visible').animate({ opacity: 1}, 700);

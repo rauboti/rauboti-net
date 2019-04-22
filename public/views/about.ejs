@@ -5,34 +5,33 @@
     <!-- Cleaner font -->
     <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
     <!-- CSS source files -->
-    <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/boti.css" />
-    <link rel="stylesheet" href="/css/responsive.css" />
+    <!--<link rel="stylesheet" href="/css/main.css" />-->
+    <!--<link rel="stylesheet" href="/css/boti.css" />-->
+    <!--<link rel="stylesheet" href="/css/responsive.css" />-->
+    <% if (device === 'desktop') {%><link rel="stylesheet" href="/css/boti-desktop.css" /><%} else if (device === 'phone') {%><link rel="stylesheet" href="/css/boti-mobile.css" /><%}%>
     <nav>
       <menu>
-        <% for(var i=0; i<menu.length; i++) {
-          if (menu[i].id === activePage) {%>
-          <a href="<%=menu[i].path%>"><div id="<%=menu[i].id%>" class="menu-button menu-button-selected"><div class="menu-button-text"><%=menu[i].text%></div></div></a>
+        <% for(var i=0; i<menu.length; i++) { if (menu[i].id === activePage) {%>
+        <button onclick="location.href=location.origin + '<%=menu[i].path%>';" class="selected"><%=menu[i].text%></button>
         <%} else {%>
-          <a href="<%=menu[i].path%>"><div id="<%=menu[i].id%>" class="menu-button"><div class="menu-button-text"><%=menu[i].text%></div></div></a>
+        <button onclick="location.href=location.origin + '<%=menu[i].path%>';"><%=menu[i].text%></button>
         <%}}%>
       </menu>
     </nav>
   </head>
   <body>
     <section>
-      <div class="container">
-        <div class="container-group">
-          <div class="container-headline">About me</div>
-          <div class="container-ingress">My biggest flaw is the inability to only focus on one thing at the time. I like coding as a hobby, but at the same time I consider myself a hobby musician and at times an avid gamer. I'm sure I would excell in one of them if leaving the other 2, but alas I'm unable to.<br><br>In my 30s and happily married, currently residing in Oslo and working full time. I believe in creativity as the key to a happy life, and I can honestly say I don't wish for anything to be any different than what it currently is.</div>
+      <div class="articleContainer">
+        <div class="articleContainer-header">
+          <div class="articleContainer-header-title">About me</div>
         </div>
+        <div class="articleContainer-ingress">My biggest flaw is the inability to only focus on one thing at the time. I like coding as a hobby, but at the same time I consider myself a hobby musician and at times an avid gamer. I'm sure I would excell in one of them if leaving the other 2, but alas I'm unable to.<br><br>In my 30s and happily married, currently residing in Oslo and working full time. I believe in creativity as the key to a happy life, and I can honestly say I don't wish for anything to be any different than what it currently is.</div>
       </div>
     </section>
   </body>
   <foot>
     <!-- JS source files -->
     <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/mobile.js"></script>
     <script src="/js/main.js"></script>
   </foot>
 </html>

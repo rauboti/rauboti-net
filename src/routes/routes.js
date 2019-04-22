@@ -1,10 +1,11 @@
 // => node modules
 const express = require('express');
 const debug = require('debug')('app:raubotiRoutes');
+const device = require('express-device');
 //const passport = require('passport');
 
 // => defining routes
-const raubotiRouter = express.Router();
+const rRouter = express.Router();
 
 // => db connection
 //const sql = require('../js/db');
@@ -16,27 +17,18 @@ const projects = [
 ];
 
 function router() {
-  // => root of the scarecrow router
-  raubotiRouter.route('/').get((req, res) => {
-    res.render('index',
-    {
-      activePage: 'home', menu, title: 'Rauboti.net'
-    });
+  // => root of the router
+  rRouter.route('/').get((req, res) => {
+    res.render('index', { device: req.device.type.toLowerCase(), activePage: 'home', menu, title: 'Rauboti.net' });
   });
   // => The rest of the routes, pages you might want to open up
-  raubotiRouter.route('/projects').get((req, res) => {
-    res.render('projects',
-    {
-      activePage: 'projects', menu, title: 'Rauboti.net', projects
-    });
+  rRouter.route('/projects').get((req, res) => {
+    res.render('projects', { device: req.device.type.toLowerCase(), activePage: 'projects', menu, title: 'Rauboti.net', projects });
   });
-  raubotiRouter.route('/about').get((req, res) => {
-    res.render('about',
-    {
-      activePage: 'about', menu, title: 'Rauboti.net'
-    });
+  rRouter.route('/about').get((req, res) => {
+    res.render('about', { device: req.device.type.toLowerCase(), activePage: 'about', menu, title: 'Rauboti.net' });
   });
-  return raubotiRouter;
+  return rRouter;
 }
 
 module.exports = router;

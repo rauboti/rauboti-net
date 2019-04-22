@@ -5,33 +5,30 @@
     <!-- Cleaner font -->
     <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
     <!-- CSS source files -->
-    <link rel="stylesheet" href="/css/main.css" />
-    <link rel="stylesheet" href="/css/boti.css" />
-    <link rel="stylesheet" href="/css/responsive.css" />
+    <!--<link rel="stylesheet" href="/css/main.css" />-->
+    <!--<link rel="stylesheet" href="/css/boti.css" />-->
+    <!--<link rel="stylesheet" href="/css/responsive.css" />-->
+    <% if (device === 'desktop') {%><link rel="stylesheet" href="/css/boti-desktop.css" /><%} else if (device === 'phone') {%><link rel="stylesheet" href="/css/boti-mobile.css" /><%}%>
     <nav>
       <menu>
-        <% for(var i=0; i<menu.length; i++) {
-          if (menu[i].id === activePage) {%>
-          <a href="<%=menu[i].path%>"><div id="<%=menu[i].id%>" class="menu-button menu-button-selected"><div class="menu-button-text"><%=menu[i].text%></div></div></a>
+        <% for(var i=0; i<menu.length; i++) { if (menu[i].id === activePage) {%>
+        <button onclick="location.href=location.origin + '<%=menu[i].path%>';" class="selected"><%=menu[i].text%></button>
         <%} else {%>
-          <a href="<%=menu[i].path%>"><div id="<%=menu[i].id%>" class="menu-button"><div class="menu-button-text"><%=menu[i].text%></div></div></a>
+        <button onclick="location.href=location.origin + '<%=menu[i].path%>';"><%=menu[i].text%></button>
         <%}}%>
       </menu>
     </nav>
   </head>
   <body>
     <section>
-      <div class="container">
         <% for (var i = 0; i < projects.length; i++) {%>
-          <a href="<%=projects[i].link%>" target="_blank"><div class="container-group"><div class="container-headline is-inline col-40"><%=projects[i].name%></div><div class="container-text is-inline col-60 hover-visible"><%=projects[i].description%></div></div></a>
+          <a href="<%=projects[i].link%>" target="_blank"><div class="projectContainer"><div class="projectContainer-header"><%=projects[i].name%></div><div class="projectContainer-ingress"><%=projects[i].description%></div></div></a>
         <%}%>
-      </div>
     </section>
   </body>
   <foot>
     <!-- JS source files -->
     <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/mobile.js"></script>
     <script src="/js/main.js"></script>
   </foot>
 </html>
